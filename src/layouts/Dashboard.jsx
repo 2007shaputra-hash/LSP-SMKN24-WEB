@@ -748,7 +748,7 @@ function Dashboard({ onBack, onNavigate }) {
         {activeMenu === 'Profile' && <ProfileSection />}
       </div>
     </div>
-  
+
   );
 }
 
