@@ -9,7 +9,7 @@ import CariSkema from './layouts/CariSkema';
 import FooterPage from './layouts/FooterPage';
 import Register from './layouts/Register';
 import Login from './layouts/Login';
-import SertifikasiCTA from './layouts/SertifikasiCTA';
+// import SertifikasiCTA from './layouts/SertifikasiCTA';
 import LandingPage from './layouts/DetailSertifikasi';
 import Kontak from './layouts/kontak';
 import ManajemenData from './layouts/ManajemenData';
@@ -170,6 +170,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const goToDashboard = () => {
+    setCurrentPage('dashboard');
+    setActiveMenu('Dashboard');
+  };
+
   const goToLandingPage = () => {
     setCurrentPage('landingPage');
   };
@@ -297,10 +302,7 @@ function App() {
           <div ref={homeRef}>
             <Home
               goToRegister={() => setCurrentPage('register')}
-              goToDashboard={() => {
-                setCurrentPage('dashboard');
-                setActiveMenu('Dashboard');
-              }}
+              goToDashboard={goToDashboard}
             />
           </div>
           <div ref={profileRef}>
@@ -312,13 +314,10 @@ function App() {
           <div>
             <Skema />
           </div>
-          <SertifikasiCTA
+          {/* <SertifikasiCTA
             goToRegister={() => setCurrentPage('register')}
-            goToDashboard={() => {
-              setCurrentPage('dashboard');
-              setActiveMenu('Dashboard');
-            }}
-          />
+            goToDashboard={goToDashboard}
+          /> */}
           <div ref={galeriRef}>
             <CariSkema goToLandingPage={goToLandingPage} />
           </div>
@@ -373,7 +372,14 @@ function App() {
                 setAsesiData={setAsesiData}
               />
             )}
-            {currentPage === 'asesmen' && <Asesmen onBack={handleBackToHome} />}
+            {currentPage === 'asesmen' && (
+              <Asesmen 
+                onBack={handleBackToHome} 
+                onNavigate={handleNavigate}
+                assessmentData={assessmentData}
+                setAsesmenData={setAssessmentData}
+              />
+            )}
             {currentPage === 'jurusan' && (
               <Jurusan
                 onBack={handleBackToHome}
@@ -452,7 +458,7 @@ function App() {
         />
       )}
       {currentPage === 'register' && <Register onBack={handleBackToHome} />}
-      {currentPage === 'login' && <Login onBack={handleBackToHome} />}
+      {currentPage === 'login' && <Login onBack={handleBackToHome} goToDashboard={goToDashboard} />}
       {currentPage === 'landingPage' && <LandingPage onBack={handleBackToHome} />}
     </>
   );
