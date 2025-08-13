@@ -170,6 +170,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const goToDashboard = () => {
+    setCurrentPage('dashboard');
+    setActiveMenu('Dashboard');
+  };
+
   const goToLandingPage = () => {
     setCurrentPage('landingPage');
   };
@@ -297,10 +302,7 @@ function App() {
           <div ref={homeRef}>
             <Home
               goToRegister={() => setCurrentPage('register')}
-              goToDashboard={() => {
-                setCurrentPage('dashboard');
-                setActiveMenu('Dashboard');
-              }}
+              goToDashboard={goToDashboard}
             />
           </div>
           <div ref={profileRef}>
@@ -314,10 +316,7 @@ function App() {
           </div>
           <SertifikasiCTA
             goToRegister={() => setCurrentPage('register')}
-            goToDashboard={() => {
-              setCurrentPage('dashboard');
-              setActiveMenu('Dashboard');
-            }}
+            goToDashboard={goToDashboard}
           />
           <div ref={galeriRef}>
             <CariSkema goToLandingPage={goToLandingPage} />
@@ -452,7 +451,7 @@ function App() {
         />
       )}
       {currentPage === 'register' && <Register onBack={handleBackToHome} />}
-      {currentPage === 'login' && <Login onBack={handleBackToHome} />}
+      {currentPage === 'login' && <Login onBack={handleBackToHome} goToDashboard={goToDashboard} />}
       {currentPage === 'landingPage' && <LandingPage onBack={handleBackToHome} />}
     </>
   );
