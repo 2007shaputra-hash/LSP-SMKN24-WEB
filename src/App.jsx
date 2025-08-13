@@ -372,7 +372,14 @@ function App() {
                 setAsesiData={setAsesiData}
               />
             )}
-            {currentPage === 'asesmen' && <Asesmen onBack={handleBackToHome} />}
+            {currentPage === 'asesmen' && (
+              <Asesmen 
+                onBack={handleBackToHome} 
+                onNavigate={handleNavigate}
+                assessmentData={assessmentData}
+                setAsesmenData={setAssessmentData}
+              />
+            )}
             {currentPage === 'jurusan' && (
               <Jurusan
                 onBack={handleBackToHome}

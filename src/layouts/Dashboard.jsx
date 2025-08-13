@@ -8,7 +8,7 @@ import logoImage from '/src/img/image 12.png';
 export function DashboardSidebar({ activeMenu, onMenuClick }) {
   return (
     <div style={{
-      width: '280px',
+      width: '250px',
       backgroundColor: '#ffffff',
       display: 'flex',
       flexDirection: 'column',
@@ -56,6 +56,7 @@ export function DashboardSidebar({ activeMenu, onMenuClick }) {
         }}>
         </h3>
       </div>
+
 
       {/* Menu Items */}
       <div style={{ flex: 1, paddingLeft: '20px', paddingRight: '20px' }}>
@@ -319,6 +320,357 @@ export function DashboardSidebar({ activeMenu, onMenuClick }) {
   );
 }
 
+function ProfileSection() {
+  return (
+    <div style={{
+      width: '100%',
+      maxWidth: '800px',
+      padding: '30px',
+      backgroundColor: '#ffffff',
+      borderRadius: '20px',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+      margin: '20px'
+    }}>
+      {/* Profile Header */}
+      <div style={{ textAlign: 'center' }}>
+  <h1
+    style={{
+      fontSize: '24px',
+      fontWeight: '600',
+      color: '#1a1a1a',
+      marginBottom: '30px'
+    }}
+  >
+    PROFIL ANDA
+  </h1>
+  <p style={{ color: '#666', marginBottom: '30px' }}>
+    Lengkapi informasi profil anda
+  </p>
+</div>
+
+
+      {/* Profile Photo Section */}
+      <div style={{ marginBottom: '40px' }}>
+        <h2 style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#1a1a1a',
+          marginBottom: '15px'
+        }}>
+          Foto Profil
+        </h2>
+        <div style={{
+          border: '2px dashed #e0e0e0',
+          borderRadius: '12px',
+          padding: '20px',
+          textAlign: 'center'
+        }}>
+          <p style={{
+            fontWeight: '500',
+            marginBottom: '10px',
+            color: '#333'
+          }}>
+            <strong>Upload Foto Profil</strong>
+          </p>
+          <p style={{ color: '#666', fontSize: '14px' }}>
+            Format PNG, JPG, Maksimal 2MB
+          </p>
+        </div>
+      </div>
+
+      {/* Personal Information Section */}
+      <div style={{ marginBottom: '40px' }}>
+        <h2 style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#1a1a1a',
+          marginBottom: '15px'
+        }}>
+          Informasi Pribadi
+        </h2>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontWeight: '500',
+            color: '#333'
+          }}>
+            Nama Lengkap
+          </label>
+          <input type="text" style={{
+            width: '100%',
+            padding: '12px 15px',
+            border: '1px solid #e0e0e0',
+            borderRadius: '8px',
+            fontSize: '15px'
+          }} />
+        </div>
+
+        <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Tempat Lahir
+            </label>
+            <input type="text" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Tanggal Lahir
+            </label>
+            <input type="date" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontWeight: '500',
+            color: '#333'
+          }}>
+            Alamat
+          </label>
+          <textarea style={{
+            width: '100%',
+            padding: '12px 15px',
+            border: '1px solid #e0e0e0',
+            borderRadius: '8px',
+            fontSize: '15px',
+            minHeight: '100px'
+          }} />
+        </div>
+
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Nomor HP
+            </label>
+            <input type="tel" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Email
+            </label>
+            <input type="email" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Document Information Section */}
+      <div>
+        <h2 style={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#1a1a1a',
+          marginBottom: '15px'
+        }}>
+          Informasi Dokumen
+        </h2>
+
+        <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Nomor KTP
+            </label>
+            <input type="text" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              NPWP
+            </label>
+            <input type="text" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Nomor Sertifikat Kompetensi
+            </label>
+            <input type="text" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <label style={{
+              display: 'block',
+              marginBottom: '8px',
+              fontWeight: '500',
+              color: '#333'
+            }}>
+              Nomor Rekening
+            </label>
+            <input type="text" style={{
+              width: '100%',
+              padding: '12px 15px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              fontSize: '15px'
+            }} />
+          </div>
+        </div>
+
+        {/* Document Upload Sections */}
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontWeight: '500',
+            color: '#333'
+          }}>
+            KTP
+          </label>
+          <div style={{
+            border: '2px dashed #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}>
+            <p style={{ color: '#666', fontSize: '14px' }}>Upload KTP</p>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontWeight: '500',
+            color: '#333'
+          }}>
+            Buku Tabungan
+          </label>
+          <div style={{
+            border: '2px dashed #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            textAlign: 'center',
+            marginBottom: '15px'
+          }}>
+            <p style={{ color: '#666', fontSize: '14px' }}>Upload Buku Tabungan</p>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={{
+            display: 'block',
+            marginBottom: '8px',
+            fontWeight: '500',
+            color: '#333'
+          }}>
+            Sertifikat Kompetensi
+          </label>
+          <div style={{
+            border: '2px dashed #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: '#666', fontSize: '14px' }}>Upload Sertifikat Kompetensi</p>
+          </div>
+        </div>
+
+        {/* Save Button */}
+        <button style={{
+          backgroundColor: '#ff6b35',
+          color: 'white',
+          border: 'none',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          fontSize: '16px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          marginTop: '30px',
+          width: '100%',
+          transition: 'background-color 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e05a2b'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ff6b35'}
+        >
+          Simpan Perubahan
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 // DASHBOARD UTAMA (menggunakan sidebar component)
 function Dashboard({ onBack, onNavigate }) {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
@@ -343,10 +695,20 @@ function Dashboard({ onBack, onNavigate }) {
   return (
     <div style={{ 
       display: 'flex', 
-      minHeight: '100vh', 
+      minHeight: '100vh',
+      height: '100vh', 
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      overflow: 'hidden',
       backgroundColor: '#f5f5f5'
     }}>
+      {/* Sidebar - Fixed */}
+      <div style={{
+        position: 'sticky',
+        top: 0,
+        left: 0,
+        height: '100vh', // Full height
+        zIndex: 10
+      }}></div>
       {/* Pakai DashboardSidebar component */}
       <DashboardSidebar 
         activeMenu={activeMenu} 
@@ -354,17 +716,16 @@ function Dashboard({ onBack, onNavigate }) {
       />
 
       {/* Main Content */}
+      {/* Main Content - Scrollable */}
       <div style={{ 
         flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
+        overflowY: 'auto', // Scroll hanya di konten utama
+        padding: '20px',
         backgroundColor: '#fafafa'
       }}>
-        {/* Main Content based on active menu */}
+        {/* Konten berdasarkan activeMenu */}
         {activeMenu === 'Dashboard' && (
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', minHeight: 'calc(100vh - 40px)' }}>
             <h1 style={{
               fontSize: '6rem',
               fontWeight: '900',
@@ -383,14 +744,11 @@ function Dashboard({ onBack, onNavigate }) {
         )}
         
         {activeMenu === 'AsesmenDiikuti' && <AsesmenDiikuti />}
-        {activeMenu === 'Profile' && (
-          <div style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '2rem', color: '#1a1a1a' }}>Profile Settings</h1>
-            <p style={{ color: '#666' }}>Coming soon...</p>
-          </div>
-        )}
+        
+        {activeMenu === 'Profile' && <ProfileSection />}
       </div>
     </div>
+  
   );
 }
 
