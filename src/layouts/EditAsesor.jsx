@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 
 function EditAsesor({ data, onSave, onCancel, onDelete }) {
+  // Dummy database simulation - in real app this would be from props/context
+  const [database, setDatabase] = useState([
+    { id: 1, nama: 'John Doe', pekerjaan: 'Software Engineer', sertifikasi: 'Tersertifikasi', tanggal_daftar: '2024-01-15' },
+    { id: 2, nama: 'Jane Smith', pekerjaan: 'Data Analyst', sertifikasi: 'Tidak Tersertifikasi', tanggal_daftar: '2024-02-10' },
+    { id: 3, nama: 'Bob Johnson', pekerjaan: 'Web Developer', sertifikasi: 'Tersertifikasi', tanggal_daftar: '2024-03-05' }
+  ]);
+
+  // Current data being edited
+  const currentData = data || database[0];
+
   const [formData, setFormData] = useState({
-    nama: data?.nama || '',
-    pekerjaan: data?.pekerjaan || '',
-    sertifikasi: data?.sertifikasi || 'Tersertifikasi',
-    tanggal_daftar: data?.tanggal_daftar || ''
+    id: currentData.id,
+    nama: currentData.nama,
+    pekerjaan: currentData.pekerjaan,
+    sertifikasi: currentData.sertifikasi,
+    tanggal_daftar: currentData.tanggal_daftar
   });
 
   const [errors, setErrors] = useState({});
+  const [showUpdateNotif, setShowUpdateNotif] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,28 +62,17 @@ function EditAsesor({ data, onSave, onCancel, onDelete }) {
     e.preventDefault();
     
     if (validateForm()) {
-      const updatedItem = {
-        ...data,
-        nama: formData.nama.trim(),
-        pekerjaan: formData.pekerjaan.trim(),
-        sertifikasi: formData.sertifikasi,
-        tanggal_daftar: formData.tanggal_daftar.trim()
-      };
-      
-      if (onSave) {
-        onSave(updatedItem);
-      }
-      alert('Data asesor berhasil diperbarui!');
+      setShowUpdateNotif(true);
     }
   };
 
   const handleCancel = () => {
-    // Reset form to original data
     setFormData({
-      nama: data?.nama || '',
-      pekerjaan: data?.pekerjaan || '',
-      sertifikasi: data?.sertifikasi || 'Tersertifikasi',
-      tanggal_daftar: data?.tanggal_daftar || ''
+      id: currentData.id,
+      nama: currentData.nama,
+      pekerjaan: currentData.pekerjaan,
+      sertifikasi: currentData.sertifikasi,
+      tanggal_daftar: currentData.tanggal_daftar
     });
     setErrors({});
     
@@ -79,12 +82,40 @@ function EditAsesor({ data, onSave, onCancel, onDelete }) {
   };
 
   const handleDelete = () => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus data asesor ini?')) {
-      if (onDelete) {
-        onDelete(data);
-      }
-      alert('Data asesor berhasil dihapus!');
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDelete = () => {
+    setShowDeleteConfirm(false);
+    
+    // Actually delete from database simulation
+    const updatedDatabase = database.filter(item => item.id !== formData.id);
+    setDatabase(updatedDatabase);
+    
+    // Call parent's onDelete function if provided
+    if (onDelete) {
+      onDelete(formData);
     }
+    
+    // Show success notification briefly then redirect
+    setShowDeleteSuccess(true);
+    
+    console.log('Data berhasil dihapus dari database:', formData);
+    console.log('Database sekarang:', updatedDatabase);
+    
+    // Auto redirect after 1.5 seconds
+    setTimeout(() => {
+      setShowDeleteSuccess(false);
+      
+      // Use the same redirect logic as Cancel button
+      if (onCancel) {
+        onCancel();
+      } else {
+        // Fallback redirect if no onCancel provided
+        window.location.href = '/asesor';
+      }
+      
+    }, 1500);
   };
 
   return (
@@ -398,6 +429,260 @@ function EditAsesor({ data, onSave, onCancel, onDelete }) {
           </button>
         </div>
       </div>
+
+      {/* Update Success Modal */}
+      {showUpdateNotif && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '20px',
+            padding: '40px 30px',
+            textAlign: 'center',
+            width: '300px',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+            position: 'relative'
+          }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              backgroundColor: '#4A90E2',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 25px auto'
+            }}>
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="#ffffff"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            <h2 style={{
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#333333',
+              margin: '0 0 25px 0',
+              lineHeight: '1.4',
+              paddingBottom: '25px',
+              borderBottom: '1px solid #e0e0e0'
+            }}>
+              Data Anda<br />Diperbarui!
+            </h2>
+
+            <div
+              onClick={() => {
+                setShowUpdateNotif(false);
+                if (onSave) {
+                  onSave({
+                    ...formData,
+                    nama: formData.nama.trim(),
+                    pekerjaan: formData.pekerjaan.trim(),
+                    sertifikasi: formData.sertifikasi,
+                    tanggal_daftar: formData.tanggal_daftar.trim()
+                  });
+                }
+              }}
+              style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#333333',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                userSelect: 'none'
+              }}
+            >
+              Okay!
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '20px',
+            padding: '40px 30px',
+            textAlign: 'center',
+            width: '320px',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+            position: 'relative'
+          }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              backgroundColor: '#dc3545',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 25px auto'
+            }}>
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  stroke="#ffffff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            <h2 style={{
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#333333',
+              margin: '0 0 25px 0',
+              lineHeight: '1.4',
+              paddingBottom: '25px',
+              borderBottom: '1px solid #e0e0e0'
+            }}>
+              Anda Yakin<br />Menghapus Data<br />"{formData.nama}"?
+            </h2>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <div
+                onClick={() => setShowDeleteConfirm(false)}
+                style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: '#666666',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  userSelect: 'none',
+                  padding: '8px 20px'
+                }}
+              >
+                Batal
+              </div>
+              
+              <div style={{
+                width: '1px',
+                height: '20px',
+                backgroundColor: '#e0e0e0',
+                margin: '0 10px'
+              }}></div>
+              
+              <div
+                onClick={confirmDelete}
+                style={{
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: '#dc3545',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  userSelect: 'none',
+                  padding: '8px 20px'
+                }}
+              >
+                Hapus
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Success Modal */}
+      {showDeleteSuccess && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '20px',
+            padding: '40px 30px',
+            textAlign: 'center',
+            width: '300px',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+            position: 'relative'
+          }}>
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              backgroundColor: '#28a745',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 25px auto'
+            }}>
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="#ffffff"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            <h2 style={{
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#333333',
+              margin: '0 0 25px 0',
+              lineHeight: '1.4',
+              paddingBottom: '25px',
+              borderBottom: '1px solid #e0e0e0'
+            }}>
+              Data Berhasil<br />Dihapus! 
+            </h2>
+
+            <p style={{
+              fontSize: '16px',
+              color: '#666666',
+              margin: '0',
+              fontFamily: 'inherit'
+            }}>
+              Mengarahkan ke halaman asesor...
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

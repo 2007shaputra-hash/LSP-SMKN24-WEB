@@ -9,6 +9,7 @@ function AddAsesor({ onBack, onSave, onCancel }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [showAddNotif, setShowAddNotif] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,27 +49,8 @@ function AddAsesor({ onBack, onSave, onCancel }) {
     e.preventDefault();
     
     if (validateForm()) {
-      const newItem = {
-        id: Date.now(),
-        nama: formData.nama.trim(),
-        pekerjaan: formData.pekerjaan.trim(),
-        sertifikasi: formData.sertifikasi,
-        tanggal_daftar: formData.tanggal_daftar.trim()
-      };
-      
-      if (onSave) {
-        onSave(newItem);
-      }
-      alert('Data asesor berhasil ditambahkan!');
-      
-      // Reset form after save
-      setFormData({
-        nama: '',
-        pekerjaan: '',
-        sertifikasi: 'Tersertifikasi',
-        tanggal_daftar: ''
-      });
-      setErrors({});
+      // Show notification modal
+      setShowAddNotif(true);
     }
   };
 
@@ -375,6 +357,106 @@ function AddAsesor({ onBack, onSave, onCancel }) {
           </button>
         </div>
       </div>
+
+      {/* Add Success Modal - Center of screen */}
+      {showAddNotif && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '20px',
+            padding: '40px 30px',
+            textAlign: 'center',
+            width: '300px',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+            position: 'relative'
+          }}>
+            {/* Check Icon */}
+            <div style={{
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              backgroundColor: '#28a745',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 25px auto'
+            }}>
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="#ffffff"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+
+            {/* Success Message */}
+            <h2 style={{
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#333333',
+              margin: '0 0 25px 0',
+              lineHeight: '1.4',
+              paddingBottom: '25px',
+              borderBottom: '1px solid #e0e0e0'
+            }}>
+              Data Berhasil<br />Ditambahkan!
+            </h2>
+
+            {/* OK Text */}
+            <div
+              onClick={() => {
+                setShowAddNotif(false);
+                
+                // Create new item
+                const newItem = {
+                  id: Date.now(),
+                  nama: formData.nama.trim(),
+                  pekerjaan: formData.pekerjaan.trim(),
+                  sertifikasi: formData.sertifikasi,
+                  tanggal_daftar: formData.tanggal_daftar.trim()
+                };
+                
+                if (onSave) {
+                  onSave(newItem);
+                }
+                
+                // Reset form after save
+                setFormData({
+                  nama: '',
+                  pekerjaan: '',
+                  sertifikasi: 'Tersertifikasi',
+                  tanggal_daftar: ''
+                });
+                setErrors({});
+              }}
+              style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#333333',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                userSelect: 'none'
+              }}
+            >
+              Okay!
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
