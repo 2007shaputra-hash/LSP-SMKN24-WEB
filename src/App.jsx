@@ -20,6 +20,8 @@ import Asesi from './layouts/Asesi';
 import AddAsesi from './layouts/AddAsesi';
 import EditAsesi from './layouts/EditAsesi';
 import Asesmen from './layouts/Asesmen';
+import AddAsesmen from './layouts/AddAsesmen';
+import EditAsesmen from './layouts/EditAsesmen';
 import Jurusan from './layouts/Jurusan';
 import AddJurusan from './layouts/AddJurusan';
 import EditJurusan from './layouts/EditJurusan';
@@ -29,6 +31,7 @@ import AsesmenDiikuti from './layouts/AsesmenDiikuti';
 import Berita from './layouts/Berita';
 import AddListAsesmen from './layouts/AddListAsesmen';
 import EditListAsesmen from './layouts/EditListAsesmen';
+
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -50,6 +53,7 @@ function App() {
     { id: 6, no: 6, nama: 'Erwin Abristor Mega', pekerjaan: 'Siswa', jurusan: 'Usaha Layanan Pariwisata', kelas: '11' },
     { id: 7, no: 7, nama: 'Erwin Abristor Mega', pekerjaan: 'Siswa', jurusan: 'Kuliner', kelas: '11' }
   ]);
+
   const [jurusanData, setJurusanData] = useState([
     { id: 1, kompetensiKeahlian: 'Rekayasa Perangkat Lunak', jumlahSiswa: '45' },
     { id: 2, kompetensiKeahlian: 'Teknik Komputer dan Jaringan', jumlahSiswa: '38' },
@@ -107,6 +111,8 @@ function App() {
     'kompetensi',
     'listasesmen',
     'asesmenDiikuti',
+    'addasesmen',
+    'editasesmen',
   ];
 
   const scrollToSection = (section) => {
@@ -200,9 +206,11 @@ function App() {
       editasesor: 'ManajemenData',
       addasesi: 'ManajemenData',
       editasesi: 'ManajemenData',
+      addasesmen: 'ManajemenData',
+      editasesmen: 'ManajemenData',
     };
 
-    if (['asesor', 'asesi', 'asesmen', 'jurusan', 'kompetensi', 'addlistasesmen', 'addjurusan', 'editjurusan', 'addasesor', 'editasesor', 'addasesi', 'editasesi'].includes(pageLower)) {
+    if (['asesor', 'asesi', 'asesmen', 'jurusan', 'kompetensi', 'addlistasesmen', 'addjurusan', 'editjurusan', 'addasesor', 'editasesor', 'addasesi', 'editasesi', 'addasesmen', 'editasesmen'].includes(pageLower)) {
       setActiveMenu('ManajemenData');
     } else if (menuMap[pageLower]) {
       setActiveMenu(menuMap[pageLower]);
@@ -289,6 +297,18 @@ function App() {
       asesi.id === updatedData.id ? updatedData : asesi
     ));
     handleNavigate('asesi');
+  };
+
+  const handleAddAsesmen = (newData) => {
+    // Karena menggunakan data statis, kita hanya menampilkan alert
+    alert('Data berhasil ditambahkan!');
+    handleNavigate('asesmen');
+  };
+
+  const handleEditAsesmen = (updatedData) => {
+    // Karena menggunakan data statis, kita hanya menampilkan alert
+    alert('Data berhasil diperbarui!');
+    handleNavigate('asesmen');
   };
 
   return (
@@ -399,6 +419,19 @@ function App() {
             )}
             {currentPage === 'asesmenDiikuti' && (
               <AsesmenDiikuti onBack={handleBackToHome} />
+            )}
+            {currentPage === 'addasesmen' && (
+              <AddAsesmen
+                onSave={handleAddAsesmen}
+                onCancel={() => handleNavigate('asesmen')}
+              />
+            )}
+            {currentPage === 'editasesmen' && (
+              <EditAsesmen
+                data={editData}
+                onSave={handleEditAsesmen}
+                onCancel={() => handleNavigate('asesmen')}
+              />
             )}
           </div>
         </div>

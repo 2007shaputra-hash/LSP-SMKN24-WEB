@@ -2,14 +2,22 @@ import React from 'react';
 
 function Asesmen({ onBack, onNavigate }) {
   const asesmenData = [
-    { judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Perhotelan", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Busana", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Usaha Layanan Pariwisata", tanggal: "-" },
-    { judul: "Erwin Alaskar Mega", program: "Kuliner", tanggal: "-" },
+    { id: 1, judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
+    { id: 2, judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
+    { id: 3, judul: "Erwin Alaskar Mega", program: "Rekayasa Perangkat Lunak", tanggal: "-" },
+    { id: 4, judul: "Erwin Alaskar Mega", program: "Perhotelan", tanggal: "-" },
+    { id: 5, judul: "Erwin Alaskar Mega", program: "Busana", tanggal: "-" },
+    { id: 6, judul: "Erwin Alaskar Mega", program: "Usaha Layanan Pariwisata", tanggal: "-" },
+    { id: 7, judul: "Erwin Alaskar Mega", program: "Kuliner", tanggal: "-" },
   ];
+
+  const handleDelete = (id) => {
+    if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+      // Karena menggunakan data statis, kita tidak bisa menghapus data
+      // Tapi tetap bisa menampilkan konfirmasi
+      alert('Data berhasil dihapus!');
+    }
+  };
 
   return (
     <div style={{
@@ -48,7 +56,7 @@ function Asesmen({ onBack, onNavigate }) {
 
       {/* Add button */}
       <div style={{ marginBottom: '16px', textAlign: 'right' }}>
-        <button onClick={() => onNavigate && onNavigate('addlistasesmen')} style={{
+        <button onClick={() => onNavigate && onNavigate('addasesmen')} style={{
           backgroundColor: '#ff9500',
           color: 'white',
           border: 'none',
@@ -81,13 +89,13 @@ function Asesmen({ onBack, onNavigate }) {
           </thead>
           <tbody>
             {asesmenData.map((asesmen, index) => (
-              <tr key={index}>
+              <tr key={asesmen.id}>
                 <td style={tdStyleCenter}>{index + 1}</td>
                 <td style={tdStyle}>{asesmen.judul}</td>
                 <td style={tdStyleCenter}>{asesmen.program}</td>
                 <td style={tdStyleCenter}>{asesmen.tanggal}</td>
                 <td style={tdStyleCenter}>
-                  <button onClick={() => onNavigate && onNavigate('editlistasesmen', asesmen)} style={{
+                  <button onClick={() => onNavigate && onNavigate('editasesmen', asesmen)} style={{
                     backgroundColor: '#ffc107',
                     color: '#333',
                     border: 'none',
@@ -95,9 +103,22 @@ function Asesmen({ onBack, onNavigate }) {
                     padding: '4px 8px',
                     fontSize: '11px',
                     fontWeight: '600',
+                    cursor: 'pointer',
+                    marginRight: '4px'
+                  }}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(asesmen.id)} style={{
+                    backgroundColor: '#dc3545',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '3px',
+                    padding: '4px 8px',
+                    fontSize: '11px',
+                    fontWeight: '600',
                     cursor: 'pointer'
                   }}>
-                    Edit Data
+                    Hapus
                   </button>
                 </td>
               </tr>
