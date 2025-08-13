@@ -19,9 +19,9 @@ import EditAsesor from './layouts/EditAsesor';
 import Asesi from './layouts/Asesi';
 import AddAsesi from './layouts/AddAsesi';
 import EditAsesi from './layouts/EditAsesi';
-import Asesmen from './layouts/Asesmen';
-import AddAsesmen from './layouts/AddAsesmen';
-import EditAsesmen from './layouts/EditAsesmen';
+import Asesmen from './layouts/asesmen';
+import AddAsesmen from './layouts/addasesmen';
+import EditAsesmen from './layouts/editasesmen';
 import Jurusan from './layouts/Jurusan';
 import AddJurusan from './layouts/AddJurusan';
 import EditJurusan from './layouts/EditJurusan';
@@ -396,8 +396,6 @@ function App() {
               <Asesmen 
                 onBack={handleBackToHome} 
                 onNavigate={handleNavigate}
-                assessmentData={assessmentData}
-                setAsesmenData={setAssessmentData}
               />
             )}
             {currentPage === 'jurusan' && (
