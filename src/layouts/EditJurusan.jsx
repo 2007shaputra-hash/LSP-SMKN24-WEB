@@ -7,6 +7,9 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
   });
 
   const [errors, setErrors] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Load initial data when component mounts
   useEffect(() => {
@@ -60,17 +63,104 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
         jumlahSiswa: parseInt(formData.jumlahSiswa.trim())
       };
       
-      onSave(updatedItem);
-      alert('Data berhasil diperbarui!');
+      // Simpan data ke state sementara
+      window.tempUpdateData = updatedItem;
+      
+      // Tampilkan notifikasi
+      setShowSuccess(true);
     }
   };
 
   const handleDelete = () => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-      onDelete(initialData.id);
-      alert('Data berhasil dihapus!');
-    }
+    // Tampilkan notifikasi konfirmasi custom
+    setShowDeleteConfirm(true);
   };
+
+  // SVG Checkmark Icon Component
+  const CheckmarkIcon = () => (
+    <svg 
+      width="80" 
+      height="80" 
+      viewBox="0 0 100 100" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Outer Circle */}
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="45" 
+        stroke="#4A90E2" 
+        strokeWidth="4" 
+        fill="none"
+        style={{
+          strokeDasharray: '283',
+          strokeDashoffset: (showSuccess || showDeleteSuccess) ? '0' : '283',
+          transition: 'stroke-dashoffset 0.5s ease-in-out',
+          transform: 'rotate(-90deg)',
+          transformOrigin: '50px 50px'
+        }}
+      />
+      {/* Checkmark */}
+      <path 
+        d="M30 50L42 62L70 34" 
+        stroke="#4A90E2" 
+        strokeWidth="6" 
+        fill="none" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+        style={{
+          strokeDasharray: '50',
+          strokeDashoffset: (showSuccess || showDeleteSuccess) ? '0' : '50',
+          transition: 'stroke-dashoffset 0.3s ease-in-out 0.3s'
+        }}
+      />
+    </svg>
+  );
+
+  // SVG Warning Icon Component
+  const WarningIcon = () => (
+    <svg 
+      width="80" 
+      height="80" 
+      viewBox="0 0 100 100" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Outer Circle */}
+      <circle 
+        cx="50" 
+        cy="50" 
+        r="45" 
+        fill="#FF4757" 
+        style={{
+          animation: showDeleteConfirm ? 'pulseRed 0.6s ease-out' : 'none'
+        }}
+      />
+      {/* Exclamation mark */}
+      <path 
+        d="M50 25V55" 
+        stroke="white" 
+        strokeWidth="6" 
+        strokeLinecap="round"
+        style={{
+          strokeDasharray: '30',
+          strokeDashoffset: showDeleteConfirm ? '0' : '30',
+          transition: 'stroke-dashoffset 0.3s ease-in-out 0.2s'
+        }}
+      />
+      <circle 
+        cx="50" 
+        cy="70" 
+        r="4" 
+        fill="white"
+        style={{
+          opacity: showDeleteConfirm ? '1' : '0',
+          transition: 'opacity 0.2s ease-in-out 0.4s'
+        }}
+      />
+    </svg>
+  );
 
   return (
     <div style={{
@@ -88,6 +178,334 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       zIndex: 9999
     }}>
+      {/* Notifikasi Konfirmasi Delete */}
+      {showDeleteConfirm && (
+        <>
+          {/* Overlay dengan animasi fade */}
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              zIndex: 10000,
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Modal Konfirmasi */}
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '50px 40px 40px 40px',
+            borderRadius: '20px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            textAlign: 'center',
+            zIndex: 10001,
+            width: '320px',
+            maxWidth: '90vw',
+            animation: 'slideUp 0.4s ease-out'
+          }}>
+            {/* Icon Warning Animasi */}
+            <div style={{ marginBottom: '25px' }}>
+              <WarningIcon />
+            </div>
+            
+            {/* Text */}
+            <div style={{
+              fontSize: '20px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '8px',
+              letterSpacing: '-0.5px'
+            }}>
+              Anda Yakin
+            </div>
+            <div style={{
+              fontSize: '20px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '30px',
+              letterSpacing: '-0.5px'
+            }}>
+              Menghapus Data Ini?
+            </div>
+            
+            {/* Buttons */}
+            <div style={{
+              display: 'flex',
+              gap: '12px',
+              justifyContent: 'center'
+            }}>
+              <button
+                onClick={() => {
+                  // Tutup konfirmasi
+                  setShowDeleteConfirm(false);
+                  
+                  // Simpan id untuk delete
+                  window.tempDeleteId = initialData.id;
+                  
+                  // Tampilkan notifikasi sukses delete
+                  setShowDeleteSuccess(true);
+                }}
+                style={{
+                  backgroundColor: '#FF4757',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 20px',
+                  borderRadius: '25px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  minWidth: '90px'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = '#ff3742';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = '#FF4757';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                Lanjutkan
+              </button>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                style={{
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 20px',
+                  borderRadius: '25px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  minWidth: '90px'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = '#5a6268';
+                  e.target.style.transform = 'translateY(-2px)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = '#6c757d';
+                  e.target.style.transform = 'translateY(0)';
+                }}
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Notifikasi Sukses Update */}
+      {showSuccess && (
+        <>
+          {/* Overlay dengan animasi fade */}
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              zIndex: 10000,
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Modal Notifikasi */}
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '50px 40px 40px 40px',
+            borderRadius: '20px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            textAlign: 'center',
+            zIndex: 10001,
+            width: '320px',
+            maxWidth: '90vw',
+            animation: 'slideUp 0.4s ease-out'
+          }}>
+            {/* Icon Checkmark Animasi */}
+            <div style={{ marginBottom: '25px' }}>
+              <CheckmarkIcon />
+            </div>
+            
+            {/* Text */}
+            <div style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '8px',
+              letterSpacing: '-0.5px'
+            }}>
+              Data Anda
+            </div>
+            <div style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '30px',
+              letterSpacing: '-0.5px'
+            }}>
+              Diperbarui!
+            </div>
+            
+            {/* Button */}
+            <button
+              onClick={() => {
+                // Tutup notifikasi
+                setShowSuccess(false);
+                
+                // Baru panggil onSave
+                if (window.tempUpdateData) {
+                  onSave && onSave(window.tempUpdateData);
+                  window.tempUpdateData = null;
+                }
+              }}
+              style={{
+                backgroundColor: '#4A90E2',
+                color: 'white',
+                border: 'none',
+                padding: '14px 40px',
+                borderRadius: '25px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
+                minWidth: '120px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#357ABD';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#4A90E2';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(74, 144, 226, 0.3)';
+              }}
+            >
+              Okay!
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Notifikasi Sukses Delete */}
+      {showDeleteSuccess && (
+        <>
+          {/* Overlay dengan animasi fade */}
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              zIndex: 10000,
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Modal Notifikasi */}
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '50px 40px 40px 40px',
+            borderRadius: '20px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            textAlign: 'center',
+            zIndex: 10001,
+            width: '320px',
+            maxWidth: '90vw',
+            animation: 'slideUp 0.4s ease-out'
+          }}>
+            {/* Icon Checkmark Animasi */}
+            <div style={{ marginBottom: '25px' }}>
+              <CheckmarkIcon />
+            </div>
+            
+            {/* Text */}
+            <div style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '8px',
+              letterSpacing: '-0.5px'
+            }}>
+              Data Berhasil
+            </div>
+            <div style={{
+              fontSize: '24px',
+              fontWeight: '700',
+              color: '#333',
+              marginBottom: '30px',
+              letterSpacing: '-0.5px'
+            }}>
+              Dihapus!
+            </div>
+            
+            {/* Button */}
+            <button
+              onClick={() => {
+                // Tutup notifikasi
+                setShowDeleteSuccess(false);
+                
+                // Baru panggil onDelete
+                if (window.tempDeleteId) {
+                  onDelete && onDelete(window.tempDeleteId);
+                  window.tempDeleteId = null;
+                }
+              }}
+              style={{
+                backgroundColor: '#4A90E2',
+                color: 'white',
+                border: 'none',
+                padding: '14px 40px',
+                borderRadius: '25px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
+                minWidth: '120px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#357ABD';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#4A90E2';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(74, 144, 226, 0.3)';
+              }}
+            >
+              Okay!
+            </button>
+          </div>
+        </>
+      )}
+
       {/* Header */}
       <div style={{
         padding: '40px 0 20px 0',
@@ -104,15 +522,15 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
         </h1>
       </div>
 
-      {/* Form Container - Full rounded with exact margins */}
+      {/* Form Container */}
       <div style={{
-        margin: '0 20px 0 20px', // 20px margin on left and right sides
+        margin: '0 20px 0 20px',
         backgroundColor: '#ffffff',
-        borderRadius: '30px 30px 0 0', // Only top corners rounded
+        borderRadius: '30px 30px 0 0',
         padding: '40px',
         boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
-        minHeight: 'calc(100vh - 100px)', // Fill to bottom
-        height: 'calc(100vh - 100px)', // Exact height to bottom
+        minHeight: 'calc(100vh - 100px)',
+        height: 'calc(100vh - 100px)',
         display: 'flex',
         flexDirection: 'column'
       }}>
@@ -213,7 +631,7 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
           </div>
         </div>
 
-        {/* Action Buttons - Positioned at bottom right */}
+        {/* Action Buttons */}
         <div style={{
           display: 'flex',
           justifyContent: 'flex-end',
@@ -292,6 +710,39 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
           </button>
         </div>
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+          from { 
+            opacity: 0;
+            transform: translate(-50%, -40%);
+          }
+          to { 
+            opacity: 1;
+            transform: translate(-50%, -50%);
+          }
+        }
+        
+        @keyframes pulseRed {
+          0% { 
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          50% { 
+            transform: scale(1.1);
+          }
+          100% { 
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -45,7 +45,7 @@ function Login({ goToDashboard }) {
 
     if (user) {
       console.log('Login successful:', user);
-      goToDashboard(); // Navigate to dashboard using prop
+      if (goToDashboard) goToDashboard(); // Navigate to dashboard using prop
       setError('');
     } else {
       setError('Invalid email or password. Try admin@admin.com / admin123 or user@user.com / user123');
@@ -96,18 +96,37 @@ function Login({ goToDashboard }) {
         right: '0',
         bottom: '0'
       }}>
+        {/* Background layer/shadow box */}
         <div style={{
           backgroundColor: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(10px)',
-          padding: '40px',
-          borderRadius: '20px',
-          width: '400px',
+          padding: '20px',
+          borderRadius: '30px',
+          width: '700px',
+          height: '450px',
+          maxWidth: '95vw',
+          position: 'absolute',
+          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25), 0 10px 25px rgba(0, 0, 0, 0.15)',
+        }}>
+        </div>
+
+        {/* Main form container */}
+        <div style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(15px)',
+          padding: '50px 60px',
+          borderRadius: '25px',
+          width: '650px',
+          height: '400px',
           maxWidth: '90vw',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 0 80px rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 25px 50px rgba(0, 0, 0, 0.15), 0 0 100px rgba(255, 255, 255, 0.1)',
           textAlign: 'center',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
           position: 'relative',
-          zIndex: 1
+          zIndex: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}>
           <h1 style={{
             fontSize: '28px',
@@ -122,7 +141,7 @@ function Login({ goToDashboard }) {
           <p style={{
             fontSize: '14px',
             color: '#666',
-            marginBottom: '30px',
+            marginBottom: '25px',
             fontWeight: '400'
           }}>
             Sign in your account
@@ -133,17 +152,17 @@ function Login({ goToDashboard }) {
             backgroundColor: '#f0f9ff',
             border: '1px solid #0ea5e9',
             borderRadius: '10px',
-            padding: '15px',
+            padding: '12px',
             marginBottom: '20px',
             textAlign: 'left'
           }}>
-            <p style={{ fontSize: '12px', color: '#0369a1', fontWeight: '600', marginBottom: '8px' }}>
+            <p style={{ fontSize: '11px', color: '#0369a1', fontWeight: '600', marginBottom: '6px' }}>
               Demo Credentials:
             </p>
-            <p style={{ fontSize: '11px', color: '#0369a1', margin: '2px 0' }}>
+            <p style={{ fontSize: '10px', color: '#0369a1', margin: '2px 0' }}>
               Email: admin@admin.com | Pass: admin123
             </p>
-            <p style={{ fontSize: '11px', color: '#0369a1', margin: '2px 0' }}>
+            <p style={{ fontSize: '10px', color: '#0369a1', margin: '2px 0' }}>
               Email: user@user.com | Pass: user123
             </p>
           </div>
@@ -154,95 +173,101 @@ function Login({ goToDashboard }) {
               backgroundColor: '#fef2f2',
               border: '1px solid #f87171',
               borderRadius: '10px',
-              padding: '12px',
-              marginBottom: '20px',
-              fontSize: '12px',
+              padding: '10px',
+              marginBottom: '15px',
+              fontSize: '11px',
               color: '#dc2626'
             }}>
               {error}
             </div>
           )}
 
-          {/* Email */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              style={{
-                width: '100%',
-                padding: '16px 20px',
-                border: 'none',
-                borderBottom: '2px solid #e5e7eb',
-                fontSize: '16px',
-                backgroundColor: 'transparent',
-                outline: 'none',
-                fontFamily: 'inherit',
-                color: '#333',
-                transition: 'border-color 0.3s ease'
-              }}
-              onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
-              onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
-            />
-          </div>
+          <div style={{
+            marginBottom: '25px'
+          }}>
+            {/* Email */}
+            <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                style={{
+                  width: '100%',
+                  padding: '14px 18px',
+                  border: 'none',
+                  borderBottom: '2px solid #e5e7eb',
+                  fontSize: '15px',
+                  backgroundColor: 'transparent',
+                  outline: 'none',
+                  fontFamily: 'inherit',
+                  color: '#333',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
+                onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
+              />
+            </div>
 
-          {/* Password */}
-          <div style={{ marginBottom: '30px', textAlign: 'left' }}>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              style={{
-                width: '100%',
-                padding: '16px 20px',
-                border: 'none',
-                borderBottom: '2px solid #e5e7eb',
-                fontSize: '16px',
-                backgroundColor: 'transparent',
-                outline: 'none',
-                fontFamily: 'inherit',
-                color: '#333',
-                transition: 'border-color 0.3s ease'
-              }}
-              onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
-              onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
-            />
+            {/* Password */}
+            <div style={{ textAlign: 'left' }}>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                style={{
+                  width: '100%',
+                  padding: '14px 18px',
+                  border: 'none',
+                  borderBottom: '2px solid #e5e7eb',
+                  fontSize: '15px',
+                  backgroundColor: 'transparent',
+                  outline: 'none',
+                  fontFamily: 'inherit',
+                  color: '#333',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
+                onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
+              />
+            </div>
           </div>
 
           {/* Submit Button */}
-          <button
-            onClick={handleSubmit}
-            style={{
-              width: '100%',
-              padding: '16px',
-              background: 'linear-gradient(135deg, #ff7f50, #ff6b35)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '25px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: '0 4px 15px rgba(255, 107, 53, 0.4)',
-              letterSpacing: '0.5px'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 6px 20px rgba(255, 107, 53, 0.6)';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 15px rgba(255, 107, 53, 0.4)';
-            }}
-          >
-            Sign in
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button
+              onClick={handleSubmit}
+              style={{
+                width: '200px',
+                padding: '14px',
+                background: 'linear-gradient(135deg, #ff7f50, #ff6b35)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '25px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(255, 107, 53, 0.4)',
+                letterSpacing: '0.5px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 20px rgba(255, 107, 53, 0.6)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px rgba(255, 107, 53, 0.4)';
+              }}
+            >
+              Sign in
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -31,6 +31,7 @@ import AsesmenDiikuti from './layouts/AsesmenDiikuti';
 import Berita from './layouts/Berita';
 import AddListAsesmen from './layouts/AddListAsesmen';
 import EditListAsesmen from './layouts/EditListAsesmen';
+import TempatUji from './layouts/TempatUji';
 
 
 function App() {
@@ -133,6 +134,12 @@ function App() {
 
     if (section === 'berita') {
       setCurrentPage('berita');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (section === 'tempatuji') {
+      setCurrentPage('tempatuji');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -299,6 +306,7 @@ function App() {
     handleNavigate('asesi');
   };
 
+<<<<<<< HEAD
   const handleAddAsesmen = (newData) => {
     // Karena menggunakan data statis, kita hanya menampilkan alert
     alert('Data berhasil ditambahkan!');
@@ -309,11 +317,39 @@ function App() {
     // Karena menggunakan data statis, kita hanya menampilkan alert
     alert('Data berhasil diperbarui!');
     handleNavigate('asesmen');
+=======
+  // Handler untuk navigasi dari TempatUji
+  const handleTempatUjiNavigate = (menuItem) => {
+    const menuLower = menuItem.toLowerCase();
+    
+    // Jika klik Home, kembali ke halaman utama
+    if (menuLower === 'home') {
+      handleBackToHome();
+      return;
+    }
+    
+    // Bisa ditambahkan navigasi lain sesuai kebutuhan
+    console.log(`Navigate to: ${menuItem}`);
+  };
+
+  // Handler untuk navigasi dari DetailSertifikasi (LandingPage)
+  const handleDetailSertifikasiNavigate = (menuItem) => {
+    const menuLower = menuItem.toLowerCase();
+    
+    // Jika klik Home, kembali ke halaman utama
+    if (menuLower === 'home') {
+      handleBackToHome();
+      return;
+    }
+    
+    // Bisa ditambahkan navigasi lain sesuai kebutuhan
+    console.log(`Navigate to: ${menuItem}`);
+>>>>>>> 2f10fa3a05757e49f8f90afc281a81e3465b4c54
   };
 
   return (
     <>
-      {(currentPage === 'home' || currentPage === 'kontak' || currentPage === 'berita' || currentPage === 'landingPage') && (
+      {(currentPage === 'home' || currentPage === 'kontak' || currentPage === 'berita' || currentPage === 'landingPage' || currentPage === 'tempatuji') && (
         <Navbar onNavClick={scrollToSection} onLoginClick={handleLoginClick} />
       )}
 
@@ -349,6 +385,7 @@ function App() {
 
       {currentPage === 'kontak' && <Kontak onBack={handleBackToHome} />}
       {currentPage === 'berita' && <Berita onBack={handleBackToHome} />}
+      {currentPage === 'tempatuji' && <TempatUji onBack={handleBackToHome} onNavigate={handleTempatUjiNavigate} />}
       {currentPage === 'dashboard' && (
         <Dashboard onBack={handleBackToHome} onNavigate={handleNavigate} />
       )}
@@ -490,7 +527,7 @@ function App() {
       )}
       {currentPage === 'register' && <Register onBack={handleBackToHome} />}
       {currentPage === 'login' && <Login onBack={handleBackToHome} goToDashboard={goToDashboard} />}
-      {currentPage === 'landingPage' && <LandingPage onBack={handleBackToHome} />}
+      {currentPage === 'landingPage' && <LandingPage onBack={handleBackToHome} onNavigate={handleDetailSertifikasiNavigate} />}
     </>
   );
 }

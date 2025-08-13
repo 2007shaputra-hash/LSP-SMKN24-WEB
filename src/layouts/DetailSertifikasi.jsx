@@ -1,11 +1,13 @@
 import React from "react";
 import labImage from "../img/komputer.png";
 
-const Home = () => {
+const DetailSertifikasi = ({ onNavigate }) => {
   const handleMenuClick = (menuItem) => {
     console.log(`Clicked on: ${menuItem}`);
-    // Di sini bisa ditambahkan navigasi atau logika lainnya
-    // Misalnya: navigate(`/${menuItem.toLowerCase()}`);
+    // Panggil onNavigate jika tersedia
+    if (onNavigate) {
+      onNavigate(menuItem);
+    }
   };
 
   return (
@@ -24,7 +26,12 @@ const Home = () => {
 
       {/* BREADCRUMB */}
       <div className="breadcrumb">
-        <span className="breadcrumb-home">Home</span>
+        <span 
+          className="breadcrumb-home" 
+          onClick={() => handleMenuClick('Home')}
+        >
+          Home
+        </span>
         <span className="breadcrumb-separator">›</span>
         <span className="breadcrumb-current">Detail Skema Sertifikasi</span>
       </div>
@@ -308,6 +315,11 @@ const Home = () => {
           font-weight: 600;
           text-decoration: underline;
           cursor: pointer;
+          transition: color 0.3s ease;
+        }
+
+        .breadcrumb-home:hover {
+          color: #4a9eff;
         }
 
         .breadcrumb-separator {
@@ -699,4 +711,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default DetailSertifikasi;

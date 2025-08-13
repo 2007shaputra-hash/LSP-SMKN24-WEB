@@ -1,4 +1,33 @@
+import { useEffect, useRef } from "react";
+
 function Profil() {
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+            observer.unobserve(entry.target); // animasi cuma sekali
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      if (textRef.current) {
+        observer.unobserve(textRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -7,7 +36,6 @@ function Profil() {
         backgroundColor: "#fff",
       }}
     >
-      {/* Judul PROFILE */}
       <h2
         style={{
           fontSize: "36px",
@@ -29,14 +57,13 @@ function Profil() {
           gap: "40px",
         }}
       >
-        
         <div style={{ flex: "1 1 300px", textAlign: "center" }}>
           <img
             src="src/img/profile_lsp.png"
             alt="Profile"
             style={{
               width: "100%",
-              maxWidth: "500px", 
+              maxWidth: "500px",
               height: "auto",
               display: "block",
               margin: "0 auto",
@@ -44,8 +71,16 @@ function Profil() {
           />
         </div>
 
-        {/* Teks kanan */}
-        <div style={{ flex: "1 1 400px" }}>
+        {/* Teks kanan dengan animasi manual */}
+        <div
+          ref={textRef}
+          style={{
+            flex: "1 1 400px",
+            opacity: 0,
+            transform: "translateY(30px)",
+            transition: "all 0.8s ease-out",
+          }}
+        >
           <div
             style={{
               display: "flex",

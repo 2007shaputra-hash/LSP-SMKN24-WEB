@@ -117,7 +117,7 @@ function Navbar({ onNavClick, onLoginClick }) {
                     Sertifikasi
                   </button>
                   <button
-                    onClick={() => onNavClick("tempat-uji-kompetensi")}
+                    onClick={() => onNavClick("tempatuji")}
                     style={{
                       display: "block",
                       width: "100%",
