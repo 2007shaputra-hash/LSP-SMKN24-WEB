@@ -13,14 +13,34 @@ const JadwalAsesmen = () => {
         marginTop: "0"
       }}></div>
 
-      {/* Header Breadcrumb */}
-      <div style={styles.breadcrumbHeader}>
-        <div style={styles.breadcrumbContent}>
-          <span>Home</span>
-          <span style={styles.breadcrumbSeparator}>›</span>
-          <span>Jadwal Assesmen</span>
+     {/* Orange breadcrumb section */}
+        <div style={{
+          backgroundColor: "#ff9324",
+          padding: "15px 40px",
+          color: "white"
+        }}>
+          <div style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            fontSize: "14px"
+          }}>
+            
+           
+          </div>
         </div>
-      </div>
+
+         <span 
+                onClick={() => setSelectedNews(null)}
+                style={{
+                  color: "#000000",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                  marginBottom: "1px",
+                  display: "block"
+                }}
+              >
+                Home &gt; Jadwal Asesmen
+              </span>
 
       {/* Main Content */}
       <div style={styles.mainContent}>
@@ -48,7 +68,10 @@ const JadwalAsesmen = () => {
           </button>
         </div>
 
-        {/* Cards Section */}
+        {/* Horizontal Line */}
+        <div style={styles.horizontalLine}></div>
+
+        {/* Cards Section - Now Horizontal */}
         <div style={styles.cardsContainer}>
           {/* Card 1 */}
           <div style={styles.card}>
@@ -356,6 +379,7 @@ const styles = {
     maxWidth: '1200px',
     margin: '0 auto',
     padding: '32px 16px',
+    marginBottom: '120px', // Increased more space from footer
   },
   titleSection: {
     marginBottom: '32px',
@@ -376,14 +400,14 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     gap: '16px',
-    marginBottom: '32px',
+    marginBottom: '24px', // Reduced margin bottom since we have line now
   },
   searchSelect: {
     flex: '1',
     minWidth: '0',
-    padding: '8px 16px',
+    padding: '12px 20px', // Increased padding
     border: '1px solid #ddd',
-    borderRadius: '8px',
+    borderRadius: '25px', // Made pill/oval shaped
     backgroundColor: 'white',
     color: '#666',
     fontSize: '14px',
@@ -391,58 +415,76 @@ const styles = {
   searchInput: {
     flex: '1',
     minWidth: '0',
-    padding: '8px 16px',
+    padding: '12px 20px', // Increased padding
     border: '1px solid #ddd',
-    borderRadius: '8px',
+    borderRadius: '25px', // Made pill/oval shaped
     fontSize: '14px',
   },
   searchButton: {
     backgroundColor: '#ff6b00',
     color: 'white',
-    padding: '8px 24px',
+    padding: '12px 32px', // Increased padding
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '25px', // Made pill/oval shaped
     fontWeight: '500',
     cursor: 'pointer',
   },
+  // Added horizontal line style
+  horizontalLine: {
+    width: '100%',
+    height: '1px',
+    backgroundColor: '#ddd',
+    marginBottom: '32px',
+  },
+  // MAIN CHANGE: Cards now display horizontally in a row
   cardsContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row', // Changed from 'column' to 'row'
     gap: '24px',
+    flexWrap: 'wrap', // Allow wrapping on smaller screens
+    alignItems: 'flex-start', // Align cards to top consistently
   },
   card: {
     backgroundColor: 'white',
     border: '1px solid #e0e0e0',
-    borderRadius: '8px',
-    padding: '24px',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    borderRadius: '12px', // Slightly more rounded corners
+    padding: '20px 20px 24px 20px', // More compact padding
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)', // Enhanced shadow
+    flex: '0 0 200px', // Fixed width instead of flex 1
+    height: '300px', // Fixed height for consistency
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between', // Space content evenly
   },
   cardContent: {
-    marginBottom: '16px',
+    marginBottom: '20px', // Reduced margin
+    flex: '1', // Take up available space
   },
   cardTitle: {
     fontWeight: '500',
     color: '#333',
-    marginBottom: '12px',
-    fontSize: '16px',
+    marginBottom: '16px', // Increased space after title
+    fontSize: '15px', // Slightly smaller font
     marginTop: '0',
+    lineHeight: '1.4',
   },
   cardDetails: {
-    fontSize: '14px',
+    fontSize: '13px', // Slightly smaller
     color: '#666',
-    lineHeight: '1.5',
+    lineHeight: '1.6', // More line spacing
+    marginBottom: '20px', // Add space before button
   },
   cardButtonContainer: {
-    textAlign: 'center',
+    textAlign: 'left', // Changed from center to left (pinggir)
   },
   cardButton: {
-    backgroundColor: '#3b82f6',
-    color: 'white',
-    padding: '8px 24px',
-    border: 'none',
-    borderRadius: '8px',
+    backgroundColor: 'transparent', // Changed from blue to transparent
+    color: '#3b82f6', // Blue text color
+    border: '1px solid #3b82f6', // Blue border only
+    padding: '10px 32px', // More horizontal padding
+    borderRadius: '20px', // More rounded like a pill
     fontWeight: '500',
-    fontSize: '14px',
+    fontSize: '13px',
     cursor: 'pointer',
   },
 };
