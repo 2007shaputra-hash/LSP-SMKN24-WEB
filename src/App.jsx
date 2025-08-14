@@ -34,6 +34,7 @@ import EditListAsesmen from './layouts/EditListAsesmen';
 import TempatUji from './layouts/TempatUji';
 import AddSkema from './layouts/AddSkema';
 import EditSkema from './layouts/EditSkema';
+import JadwalAsesmen from './layouts/jadwalasesmen';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -174,6 +175,12 @@ function App() {
 
     if (section === 'tempatuji') {
       setCurrentPage('tempatuji');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (section === 'jadwalasesmen') {
+      setCurrentPage('jadwalasesmen');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -399,7 +406,7 @@ function App() {
 
   return (
     <>
-      {(currentPage === 'home' || currentPage === 'kontak' || currentPage === 'berita' || currentPage === 'landingPage' || currentPage === 'tempatuji') && (
+      {(currentPage === 'home' || currentPage === 'kontak' || currentPage === 'berita' || currentPage === 'landingPage' || currentPage === 'tempatuji' || currentPage === 'jadwalasesmen') && (
         <Navbar onNavClick={scrollToSection} onLoginClick={handleLoginClick} />
       )}
 
@@ -436,6 +443,7 @@ function App() {
       {currentPage === 'kontak' && <Kontak onBack={handleBackToHome} />}
       {currentPage === 'berita' && <Berita onBack={handleBackToHome} />}
       {currentPage === 'tempatuji' && <TempatUji onBack={handleBackToHome} onNavigate={handleTempatUjiNavigate} />}
+      {currentPage === 'jadwalasesmen' && <JadwalAsesmen onBack={handleBackToHome} />}
       {currentPage === 'dashboard' && (
         <Dashboard onBack={handleBackToHome} onNavigate={handleNavigate} />
       )}
