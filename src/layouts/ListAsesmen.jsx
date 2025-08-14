@@ -15,8 +15,8 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
     item.pembiayaan.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleOpenDeleteModal = (id) => {
-    setItemToDelete(id);
+  const handleOpenDeleteModal = (item) => {
+    setItemToDelete(item);
     setShowDeleteModal(true);
   };
 
@@ -27,7 +27,7 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
 
   const handleConfirmDelete = () => {
     if (itemToDelete) {
-      setAssessmentData(assessmentData.filter(item => item.id !== itemToDelete));
+      setAssessmentData(assessmentData.filter(item => item.id !== itemToDelete.id));
     }
     handleCloseDeleteModal();
   };
@@ -79,6 +79,14 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  );
+
+  const WarningIcon = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+      <line x1="12" y1="9" x2="12" y2="13"></line>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
     </svg>
   );
 
@@ -483,7 +491,7 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
                       }}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#cc0000'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = '#ff0000'}
-                      onClick={() => handleOpenDeleteModal(item.id)}
+                      onClick={() => handleOpenDeleteModal(item)}
                       >
                         <DeleteIcon /> Hapus
                       </button>
@@ -507,15 +515,15 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
+      {/* Delete Confirmation Modal - Updated Design */}
+      {showDeleteModal && itemToDelete && (
         <div style={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100vw',
           height: '100vh',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.6)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -523,85 +531,104 @@ function ListAsesmen({ onBack, onNavigate, assessmentData, setAssessmentData }) 
         }}>
           <div style={{
             backgroundColor: '#ffffff',
-            borderRadius: '16px',
-            padding: '30px',
+            borderRadius: '20px',
+            padding: '0',
             width: '100%',
-            maxWidth: '400px',
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+            maxWidth: '380px',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
             textAlign: 'center',
             fontFamily: 'Arial, sans-serif',
+            overflow: 'hidden',
           }}>
+            {/* Warning Icon Circle */}
+            <div style={{
+              backgroundColor: '#dc3545',
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '30px auto 20px',
+            }}>
+              <WarningIcon />
+            </div>
+
+            {/* Title */}
             <h3 style={{
-              fontSize: '20px',
-              fontWeight: '700',
-              color: '#2c3e50',
-              marginBottom: '20px',
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#333',
+              margin: '0 0 15px 0',
+              padding: '0 20px',
             }}>
-              Konfirmasi Penghapusan
+              Anda Yakin
             </h3>
-            <p style={{
-              fontSize: '16px',
-              color: '#34495e',
-              marginBottom: '30px',
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#333',
+              margin: '0 0 15px 0',
+              padding: '0 20px',
             }}>
-              Apakah Anda yakin ingin menghapus data asesmen ini? Tindakan ini tidak dapat dibatalkan.
+              Menghapus Data
+            </h3>
+
+            {/* Item Name */}
+            <p style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#333',
+              margin: '0 0 30px 0',
+              padding: '0 20px',
+            }}>
+              "{itemToDelete.namaJadwal}"?
             </p>
+
+            {/* Separator Line */}
+            <div style={{
+              height: '1px',
+              backgroundColor: '#e0e0e0',
+              margin: '0 0 0 0',
+            }}></div>
+
+            {/* Buttons */}
             <div style={{
               display: 'flex',
-              justifyContent: 'flex-end',
-              gap: '20px',
+              height: '50px',
             }}>
               <button
                 onClick={handleCloseDeleteModal}
                 style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#6c757d',
-                  color: '#ffffff',
+                  flex: 1,
+                  backgroundColor: 'transparent',
+                  color: '#666',
                   border: 'none',
-                  borderRadius: '10px',
+                  fontSize: '16px',
+                  fontWeight: '500',
                   cursor: 'pointer',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(108, 117, 125, 0.3)',
+                  borderRight: '1px solid #e0e0e0',
+                  transition: 'background-color 0.2s ease',
                 }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#5a6268';
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 6px 20px rgba(108, 117, 125, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#6c757d';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(108, 117, 125, 0.3)';
-                }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
               >
                 Batal
               </button>
               <button
                 onClick={handleConfirmDelete}
                 style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#ff0000',
-                  color: '#ffffff',
+                  flex: 1,
+                  backgroundColor: 'transparent',
+                  color: '#dc3545',
                   border: 'none',
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: '16px',
                   fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  boxShadow: '0 4px 12px rgba(255, 0, 0, 0.3)',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s ease',
                 }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#cc0000';
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 6px 20px rgba(255, 0, 0, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#ff0000';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(255, 0, 0, 0.3)';
-                }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
               >
                 Hapus
               </button>
