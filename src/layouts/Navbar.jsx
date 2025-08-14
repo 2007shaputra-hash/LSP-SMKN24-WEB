@@ -121,7 +121,7 @@ function Navbar({ onNavClick, onLoginClick }) {
                     onMouseOver={(e) => (e.target.style.backgroundColor = "#f5f5f5")}
                     onMouseOut={(e) => (e.target.style.backgroundColor = "transparent")}
                   >
-                    Cari Skema
+                    Skema Sertifikasi
                   </button>
                   <button
                     onClick={() => onNavClick("tempatuji")}
