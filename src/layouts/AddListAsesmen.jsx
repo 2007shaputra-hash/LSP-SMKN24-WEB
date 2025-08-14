@@ -12,6 +12,8 @@ function AddListAsesmen({ onBack, onSave, assessmentData }) {
     jumlahPeserta: 0,
   });
 
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const handleChange = (e, field) => {
     let value = e.target.value;
     if (field === 'jumlahPeserta') {
@@ -21,8 +23,44 @@ function AddListAsesmen({ onBack, onSave, assessmentData }) {
   };
 
   const handleSubmit = () => {
-    onSave(newItem);
+    // Simpan data ke state sementara
+    window.tempAssessmentData = newItem;
+    
+    // Tampilkan notifikasi
+    setShowSuccess(true);
   };
+
+  // Blue Checkmark Icon Component
+  const CheckmarkIcon = () => (
+    <div style={{
+      width: '80px',
+      height: '80px',
+      backgroundColor: '#4A90E2',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto',
+      animation: showSuccess ? 'scaleIn 0.3s ease-out' : 'none'
+    }}>
+      <svg 
+        width="40" 
+        height="40" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" 
+          fill="white"
+          style={{
+            transform: showSuccess ? 'scale(1)' : 'scale(0)',
+            transition: 'transform 0.2s ease-out 0.1s'
+          }}
+        />
+      </svg>
+    </div>
+  );
 
   const CalendarIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -49,6 +87,121 @@ function AddListAsesmen({ onBack, onSave, assessmentData }) {
       display: 'flex',
       flexDirection: 'column',
     }}>
+      {/* Success Notification */}
+      {showSuccess && (
+        <>
+          {/* Overlay */}
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 10000,
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Modal Notification */}
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '50px 40px 40px 40px',
+            borderRadius: '16px',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
+            textAlign: 'center',
+            zIndex: 10001,
+            width: '320px',
+            maxWidth: '90vw',
+            animation: 'slideUp 0.4s ease-out'
+          }}>
+            {/* Blue Checkmark Icon */}
+            <div style={{ marginBottom: '30px' }}>
+              <CheckmarkIcon />
+            </div>
+            
+            {/* Text */}
+            <div style={{
+              fontSize: '20px',
+              fontWeight: '600',
+              color: '#333',
+              marginBottom: '8px',
+              lineHeight: '1.3'
+            }}>
+              Data Berhasil
+            </div>
+            <div style={{
+              fontSize: '20px',
+              fontWeight: '600',
+              color: '#333',
+              marginBottom: '40px',
+              lineHeight: '1.3'
+            }}>
+              Ditambahkan!
+            </div>
+            
+            {/* Thicker line separator */}
+            <div style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: '#e9ecef',
+              marginBottom: '30px'
+            }}></div>
+            
+            {/* Button without border */}
+            <button
+              onClick={() => {
+                // Tutup notifikasi
+                setShowSuccess(false);
+                
+                // Panggil onSave dan reset form
+                if (window.tempAssessmentData) {
+                  onSave && onSave(window.tempAssessmentData);
+                  window.tempAssessmentData = null;
+                }
+                
+                // Reset form
+                setNewItem({
+                  id: assessmentData?.length > 0 ? Math.max(...assessmentData.map(i => i.id)) + 1 : 1,
+                  namaJadwal: '',
+                  tuk: '',
+                  pembiayaan: 'Dibayar Penuh',
+                  tanggalUjian: '',
+                  lokasiUjian: '',
+                  asesor: '',
+                  jumlahPeserta: 0,
+                });
+              }}
+              style={{
+                backgroundColor: '#f8f9fa',
+                color: '#333',
+                border: 'none',
+                padding: '12px 30px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                minWidth: '100px'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#e9ecef';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#f8f9fa';
+              }}
+            >
+              Okay!
+            </button>
+          </div>
+        </>
+      )}
+
       <h2 style={{
         fontSize: '28px',
         fontWeight: '700',
@@ -378,6 +531,34 @@ function AddListAsesmen({ onBack, onSave, assessmentData }) {
           </button>
         </div>
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+          from { 
+            opacity: 0;
+            transform: translate(-50%, -40%);
+          }
+          to { 
+            opacity: 1;
+            transform: translate(-50%, -50%);
+          }
+        }
+        
+        @keyframes scaleIn {
+          from { 
+            transform: scale(0);
+          }
+          to { 
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -76,90 +76,72 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
     setShowDeleteConfirm(true);
   };
 
-  // SVG Checkmark Icon Component
+  // Blue Checkmark Icon Component
   const CheckmarkIcon = () => (
-    <svg 
-      width="80" 
-      height="80" 
-      viewBox="0 0 100 100" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Outer Circle */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="45" 
-        stroke="#4A90E2" 
-        strokeWidth="4" 
-        fill="none"
-        style={{
-          strokeDasharray: '283',
-          strokeDashoffset: (showSuccess || showDeleteSuccess) ? '0' : '283',
-          transition: 'stroke-dashoffset 0.5s ease-in-out',
-          transform: 'rotate(-90deg)',
-          transformOrigin: '50px 50px'
-        }}
-      />
-      {/* Checkmark */}
-      <path 
-        d="M30 50L42 62L70 34" 
-        stroke="#4A90E2" 
-        strokeWidth="6" 
+    <div style={{
+      width: '80px',
+      height: '80px',
+      backgroundColor: '#4A90E2',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto',
+      animation: (showSuccess || showDeleteSuccess) ? 'scaleIn 0.3s ease-out' : 'none'
+    }}>
+      <svg 
+        width="40" 
+        height="40" 
+        viewBox="0 0 24 24" 
         fill="none" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        style={{
-          strokeDasharray: '50',
-          strokeDashoffset: (showSuccess || showDeleteSuccess) ? '0' : '50',
-          transition: 'stroke-dashoffset 0.3s ease-in-out 0.3s'
-        }}
-      />
-    </svg>
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" 
+          fill="white"
+          style={{
+            transform: (showSuccess || showDeleteSuccess) ? 'scale(1)' : 'scale(0)',
+            transition: 'transform 0.2s ease-out 0.1s'
+          }}
+        />
+      </svg>
+    </div>
   );
 
-  // SVG Warning Icon Component
+  // Red Warning Icon Component - Updated to match your design
   const WarningIcon = () => (
-    <svg 
-      width="80" 
-      height="80" 
-      viewBox="0 0 100 100" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Outer Circle */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="45" 
-        fill="#FF4757" 
-        style={{
-          animation: showDeleteConfirm ? 'pulseRed 0.6s ease-out' : 'none'
-        }}
-      />
-      {/* Exclamation mark */}
-      <path 
-        d="M50 25V55" 
-        stroke="white" 
-        strokeWidth="6" 
-        strokeLinecap="round"
-        style={{
-          strokeDasharray: '30',
-          strokeDashoffset: showDeleteConfirm ? '0' : '30',
-          transition: 'stroke-dashoffset 0.3s ease-in-out 0.2s'
-        }}
-      />
-      <circle 
-        cx="50" 
-        cy="70" 
-        r="4" 
-        fill="white"
-        style={{
-          opacity: showDeleteConfirm ? '1' : '0',
-          transition: 'opacity 0.2s ease-in-out 0.4s'
-        }}
-      />
-    </svg>
+    <div style={{
+      width: '100px',
+      height: '100px',
+      backgroundColor: '#E53E3E',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto 30px auto',
+      animation: showDeleteConfirm ? 'scaleIn 0.3s ease-out' : 'none',
+      boxShadow: '0 4px 15px rgba(229, 62, 62, 0.3)'
+    }}>
+      <svg 
+        width="50" 
+        height="50" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+          stroke="white" 
+          strokeWidth="2.5" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+          style={{
+            transform: showDeleteConfirm ? 'scale(1)' : 'scale(0)',
+            transition: 'transform 0.2s ease-out 0.1s'
+          }}
+        />
+      </svg>
+    </div>
   );
 
   return (
@@ -178,10 +160,10 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       zIndex: 9999
     }}>
-      {/* Notifikasi Konfirmasi Delete */}
+      {/* Notifikasi Konfirmasi Delete - Enhanced Design */}
       {showDeleteConfirm && (
         <>
-          {/* Overlay dengan animasi fade */}
+          {/* Overlay */}
           <div 
             style={{
               position: 'fixed',
@@ -189,59 +171,101 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.4)',
+              backgroundColor: 'rgba(0,0,0,0.6)',
               zIndex: 10000,
-              animation: 'fadeIn 0.3s ease-out'
+              animation: 'fadeIn 0.3s ease-out',
+              backdropFilter: 'blur(4px)'
             }}
           />
           
-          {/* Modal Konfirmasi */}
+          {/* Modal Konfirmasi - Enhanced Design */}
           <div style={{
             position: 'fixed',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: 'white',
-            padding: '50px 40px 40px 40px',
+            padding: '50px 30px 30px 30px',
             borderRadius: '20px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
             textAlign: 'center',
             zIndex: 10001,
-            width: '320px',
-            maxWidth: '90vw',
+            width: '350px',
+            maxWidth: '85vw',
             animation: 'slideUp 0.4s ease-out'
           }}>
-            {/* Icon Warning Animasi */}
-            <div style={{ marginBottom: '25px' }}>
-              <WarningIcon />
-            </div>
+            {/* Icon Warning */}
+            <WarningIcon />
             
-            {/* Text */}
+            {/* Text - Updated to match your design */}
             <div style={{
-              fontSize: '20px',
-              fontWeight: '700',
-              color: '#333',
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#2D3748',
               marginBottom: '8px',
-              letterSpacing: '-0.5px'
+              lineHeight: '1.3'
             }}>
               Anda Yakin
             </div>
             <div style={{
-              fontSize: '20px',
-              fontWeight: '700',
-              color: '#333',
-              marginBottom: '30px',
-              letterSpacing: '-0.5px'
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#2D3748',
+              marginBottom: '12px',
+              lineHeight: '1.3'
             }}>
-              Menghapus Data Ini?
+              Menghapus Data
+            </div>
+            <div style={{
+              fontSize: '22px',
+              fontWeight: '600',
+              color: '#2D3748',
+              marginBottom: '40px',
+              lineHeight: '1.3'
+            }}>
+              "{formData.kompetensiKeahlian || 'Data ini'}"?
             </div>
             
-            {/* Buttons */}
+            {/* Line separator */}
+            <div style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: '#E2E8F0',
+              marginBottom: '30px'
+            }}></div>
+            
+            {/* Buttons - Enhanced Design */}
             <div style={{
               display: 'flex',
-              gap: '12px',
-              justifyContent: 'center'
+              gap: '1px',
+              justifyContent: 'center',
+              backgroundColor: '#E2E8F0',
+              borderRadius: '8px',
+              overflow: 'hidden'
             }}>
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                style={{
+                  backgroundColor: 'white',
+                  color: '#4A5568',
+                  border: 'none',
+                  padding: '15px 0',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  flex: '1',
+                  fontFamily: 'inherit'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = '#F7FAFC';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = 'white';
+                }}
+              >
+                Batal
+              </button>
               <button
                 onClick={() => {
                   // Tutup konfirmasi
@@ -254,52 +278,25 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
                   setShowDeleteSuccess(true);
                 }}
                 style={{
-                  backgroundColor: '#FF4757',
-                  color: 'white',
+                  backgroundColor: 'white',
+                  color: '#E53E3E',
                   border: 'none',
-                  padding: '12px 20px',
-                  borderRadius: '25px',
-                  fontSize: '14px',
+                  padding: '15px 0',
+                  fontSize: '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  minWidth: '90px'
+                  flex: '1',
+                  fontFamily: 'inherit'
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.backgroundColor = '#ff3742';
-                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.backgroundColor = '#FED7D7';
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.backgroundColor = '#FF4757';
-                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.backgroundColor = 'white';
                 }}
               >
-                Lanjutkan
-              </button>
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                style={{
-                  backgroundColor: '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  padding: '12px 20px',
-                  borderRadius: '25px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  minWidth: '90px'
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.backgroundColor = '#5a6268';
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.backgroundColor = '#6c757d';
-                  e.target.style.transform = 'translateY(0)';
-                }}
-              >
-                Batal
+                Hapus
               </button>
             </div>
           </div>
@@ -309,7 +306,7 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
       {/* Notifikasi Sukses Update */}
       {showSuccess && (
         <>
-          {/* Overlay dengan animasi fade */}
+          {/* Overlay */}
           <div 
             style={{
               position: 'fixed',
@@ -317,7 +314,7 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.4)',
+              backgroundColor: 'rgba(0,0,0,0.5)',
               zIndex: 10000,
               animation: 'fadeIn 0.3s ease-out'
             }}
@@ -331,38 +328,46 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
             transform: 'translate(-50%, -50%)',
             backgroundColor: 'white',
             padding: '50px 40px 40px 40px',
-            borderRadius: '20px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            borderRadius: '16px',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
             textAlign: 'center',
             zIndex: 10001,
             width: '320px',
             maxWidth: '90vw',
             animation: 'slideUp 0.4s ease-out'
           }}>
-            {/* Icon Checkmark Animasi */}
-            <div style={{ marginBottom: '25px' }}>
+            {/* Icon Checkmark */}
+            <div style={{ marginBottom: '30px' }}>
               <CheckmarkIcon />
             </div>
             
             {/* Text */}
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
               marginBottom: '8px',
-              letterSpacing: '-0.5px'
+              lineHeight: '1.3'
             }}>
               Data Anda
             </div>
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
-              marginBottom: '30px',
-              letterSpacing: '-0.5px'
+              marginBottom: '40px',
+              lineHeight: '1.3'
             }}>
               Diperbarui!
             </div>
+            
+            {/* Line separator */}
+            <div style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: '#e9ecef',
+              marginBottom: '30px'
+            }}></div>
             
             {/* Button */}
             <button
@@ -377,27 +382,22 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
                 }
               }}
               style={{
-                backgroundColor: '#4A90E2',
-                color: 'white',
+                backgroundColor: '#f8f9fa',
+                color: '#333',
                 border: 'none',
-                padding: '14px 40px',
-                borderRadius: '25px',
+                padding: '12px 30px',
+                borderRadius: '8px',
                 fontSize: '16px',
-                fontWeight: '600',
+                fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
-                minWidth: '120px'
+                minWidth: '100px'
               }}
               onMouseOver={(e) => {
-                e.target.style.backgroundColor = '#357ABD';
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+                e.target.style.backgroundColor = '#e9ecef';
               }}
               onMouseOut={(e) => {
-                e.target.style.backgroundColor = '#4A90E2';
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(74, 144, 226, 0.3)';
+                e.target.style.backgroundColor = '#f8f9fa';
               }}
             >
               Okay!
@@ -409,7 +409,7 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
       {/* Notifikasi Sukses Delete */}
       {showDeleteSuccess && (
         <>
-          {/* Overlay dengan animasi fade */}
+          {/* Overlay */}
           <div 
             style={{
               position: 'fixed',
@@ -417,7 +417,7 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.4)',
+              backgroundColor: 'rgba(0,0,0,0.5)',
               zIndex: 10000,
               animation: 'fadeIn 0.3s ease-out'
             }}
@@ -431,38 +431,46 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
             transform: 'translate(-50%, -50%)',
             backgroundColor: 'white',
             padding: '50px 40px 40px 40px',
-            borderRadius: '20px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            borderRadius: '16px',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
             textAlign: 'center',
             zIndex: 10001,
             width: '320px',
             maxWidth: '90vw',
             animation: 'slideUp 0.4s ease-out'
           }}>
-            {/* Icon Checkmark Animasi */}
-            <div style={{ marginBottom: '25px' }}>
+            {/* Icon Checkmark */}
+            <div style={{ marginBottom: '30px' }}>
               <CheckmarkIcon />
             </div>
             
             {/* Text */}
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
               marginBottom: '8px',
-              letterSpacing: '-0.5px'
+              lineHeight: '1.3'
             }}>
               Data Berhasil
             </div>
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
-              marginBottom: '30px',
-              letterSpacing: '-0.5px'
+              marginBottom: '40px',
+              lineHeight: '1.3'
             }}>
               Dihapus!
             </div>
+            
+            {/* Line separator */}
+            <div style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: '#e9ecef',
+              marginBottom: '30px'
+            }}></div>
             
             {/* Button */}
             <button
@@ -477,27 +485,22 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
                 }
               }}
               style={{
-                backgroundColor: '#4A90E2',
-                color: 'white',
+                backgroundColor: '#f8f9fa',
+                color: '#333',
                 border: 'none',
-                padding: '14px 40px',
-                borderRadius: '25px',
+                padding: '12px 30px',
+                borderRadius: '8px',
                 fontSize: '16px',
-                fontWeight: '600',
+                fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
-                minWidth: '120px'
+                minWidth: '100px'
               }}
               onMouseOver={(e) => {
-                e.target.style.backgroundColor = '#357ABD';
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+                e.target.style.backgroundColor = '#e9ecef';
               }}
               onMouseOut={(e) => {
-                e.target.style.backgroundColor = '#4A90E2';
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(74, 144, 226, 0.3)';
+                e.target.style.backgroundColor = '#f8f9fa';
               }}
             >
               Okay!
@@ -729,17 +732,12 @@ function EditJurusan({ onBack, onSave, onDelete, initialData }) {
           }
         }
         
-        @keyframes pulseRed {
-          0% { 
-            transform: scale(0.8);
-            opacity: 0;
+        @keyframes scaleIn {
+          from { 
+            transform: scale(0);
           }
-          50% { 
-            transform: scale(1.1);
-          }
-          100% { 
+          to { 
             transform: scale(1);
-            opacity: 1;
           }
         }
       `}</style>

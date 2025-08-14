@@ -65,46 +65,36 @@ function AddJurusan({ onBack, onSave }) {
     }
   };
 
-  // SVG Checkmark Icon Component
+  // Updated Blue Checkmark Icon Component
   const CheckmarkIcon = () => (
-    <svg 
-      width="80" 
-      height="80" 
-      viewBox="0 0 100 100" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Outer Circle */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="45" 
-        stroke="#4A90E2" 
-        strokeWidth="4" 
-        fill="none"
-        style={{
-          strokeDasharray: '283',
-          strokeDashoffset: showSuccess ? '0' : '283',
-          transition: 'stroke-dashoffset 0.5s ease-in-out',
-          transform: 'rotate(-90deg)',
-          transformOrigin: '50px 50px'
-        }}
-      />
-      {/* Checkmark */}
-      <path 
-        d="M30 50L42 62L70 34" 
-        stroke="#4A90E2" 
-        strokeWidth="6" 
+    <div style={{
+      width: '80px',
+      height: '80px',
+      backgroundColor: '#4A90E2',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto',
+      animation: showSuccess ? 'scaleIn 0.3s ease-out' : 'none'
+    }}>
+      <svg 
+        width="40" 
+        height="40" 
+        viewBox="0 0 24 24" 
         fill="none" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        style={{
-          strokeDasharray: '50',
-          strokeDashoffset: showSuccess ? '0' : '50',
-          transition: 'stroke-dashoffset 0.3s ease-in-out 0.3s'
-        }}
-      />
-    </svg>
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path 
+          d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" 
+          fill="white"
+          style={{
+            transform: showSuccess ? 'scale(1)' : 'scale(0)',
+            transition: 'transform 0.2s ease-out 0.1s'
+          }}
+        />
+      </svg>
+    </div>
   );
 
   return (
@@ -117,7 +107,7 @@ function AddJurusan({ onBack, onSave }) {
       backgroundColor: '#f5f5f5',
       zIndex: 9999
     }}>
-      {/* Notifikasi Sukses - Design Baru */}
+      {/* Updated Success Notification */}
       {showSuccess && (
         <>
           {/* Overlay dengan animasi fade */}
@@ -128,13 +118,13 @@ function AddJurusan({ onBack, onSave }) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: 'rgba(0,0,0,0.4)',
+              backgroundColor: 'rgba(0,0,0,0.5)',
               zIndex: 10000,
               animation: 'fadeIn 0.3s ease-out'
             }}
           />
           
-          {/* Modal Notifikasi */}
+          {/* Modal Notifikasi - Updated Design */}
           <div style={{
             position: 'fixed',
             top: '50%',
@@ -142,40 +132,48 @@ function AddJurusan({ onBack, onSave }) {
             transform: 'translate(-50%, -50%)',
             backgroundColor: 'white',
             padding: '50px 40px 40px 40px',
-            borderRadius: '20px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            borderRadius: '16px',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
             textAlign: 'center',
             zIndex: 10001,
             width: '320px',
             maxWidth: '90vw',
             animation: 'slideUp 0.4s ease-out'
           }}>
-            {/* Icon Checkmark Animasi */}
-            <div style={{ marginBottom: '25px' }}>
+            {/* Green Checkmark Icon */}
+            <div style={{ marginBottom: '30px' }}>
               <CheckmarkIcon />
             </div>
             
-            {/* Text */}
+            {/* Updated Text */}
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
               marginBottom: '8px',
-              letterSpacing: '-0.5px'
+              lineHeight: '1.3'
             }}>
               Data Berhasil
             </div>
             <div style={{
-              fontSize: '24px',
-              fontWeight: '700',
+              fontSize: '20px',
+              fontWeight: '600',
               color: '#333',
-              marginBottom: '30px',
-              letterSpacing: '-0.5px'
+              marginBottom: '40px',
+              lineHeight: '1.3'
             }}>
-              Ditambahkan
+              Ditambahkan!
             </div>
             
-            {/* Button */}
+            {/* Thicker line separator */}
+            <div style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: '#e9ecef',
+              marginBottom: '30px'
+            }}></div>
+            
+            {/* Updated Button without border */}
             <button
               onClick={() => {
                 // Tutup notifikasi
@@ -193,27 +191,22 @@ function AddJurusan({ onBack, onSave }) {
                 });
               }}
               style={{
-                backgroundColor: '#4A90E2',
-                color: 'white',
+                backgroundColor: '#f8f9fa',
+                color: '#333',
                 border: 'none',
-                padding: '14px 40px',
-                borderRadius: '25px',
+                padding: '12px 30px',
+                borderRadius: '8px',
                 fontSize: '16px',
-                fontWeight: '600',
+                fontWeight: '500',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
-                minWidth: '120px'
+                minWidth: '100px'
               }}
               onMouseOver={(e) => {
-                e.target.style.backgroundColor = '#357ABD';
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(74, 144, 226, 0.4)';
+                e.target.style.backgroundColor = '#e9ecef';
               }}
               onMouseOut={(e) => {
-                e.target.style.backgroundColor = '#4A90E2';
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 15px rgba(74, 144, 226, 0.3)';
+                e.target.style.backgroundColor = '#f8f9fa';
               }}
             >
               Okay!
@@ -387,6 +380,15 @@ function AddJurusan({ onBack, onSave }) {
           to { 
             opacity: 1;
             transform: translate(-50%, -50%);
+          }
+        }
+        
+        @keyframes scaleIn {
+          from { 
+            transform: scale(0);
+          }
+          to { 
+            transform: scale(1);
           }
         }
       `}</style>
