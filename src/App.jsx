@@ -306,7 +306,6 @@ function App() {
     handleNavigate('asesi');
   };
 
-<<<<<<< HEAD
   const handleAddAsesmen = (newData) => {
     // Karena menggunakan data statis, kita hanya menampilkan alert
     alert('Data berhasil ditambahkan!');
@@ -317,7 +316,7 @@ function App() {
     // Karena menggunakan data statis, kita hanya menampilkan alert
     alert('Data berhasil diperbarui!');
     handleNavigate('asesmen');
-=======
+  };
   // Handler untuk navigasi dari TempatUji
   const handleTempatUjiNavigate = (menuItem) => {
     const menuLower = menuItem.toLowerCase();
@@ -344,7 +343,7 @@ function App() {
     
     // Bisa ditambahkan navigasi lain sesuai kebutuhan
     console.log(`Navigate to: ${menuItem}`);
->>>>>>> 2f10fa3a05757e49f8f90afc281a81e3465b4c54
+
   };
 
   return (
@@ -458,14 +457,15 @@ function App() {
             {currentPage === 'addasesmen' && (
               <AddAsesmen
                 onSave={handleAddAsesmen}
-                onCancel={() => handleNavigate('asesmen')}
+                onBack={() => handleNavigate('asesmen')}
+                
               />
             )}
             {currentPage === 'editasesmen' && (
               <EditAsesmen
                 data={editData}
                 onSave={handleEditAsesmen}
-                onCancel={() => handleNavigate('asesmen')}
+                onBack={() => handleNavigate('asesmen')}
               />
             )}
           </div>
