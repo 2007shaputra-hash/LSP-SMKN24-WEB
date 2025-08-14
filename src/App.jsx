@@ -32,7 +32,8 @@ import Berita from './layouts/Berita';
 import AddListAsesmen from './layouts/AddListAsesmen';
 import EditListAsesmen from './layouts/EditListAsesmen';
 import TempatUji from './layouts/TempatUji';
-
+import AddSkema from './layouts/AddSkema';
+import EditSkema from './layouts/EditSkema';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -64,6 +65,7 @@ function App() {
     { id: 6, kompetensiKeahlian: 'Usaha Layanan Pariwisata', jumlahSiswa: '30' },
     { id: 7, kompetensiKeahlian: 'Kuliner', jumlahSiswa: '32' },
   ]);
+
   const [assessmentData, setAssessmentData] = useState([
     {
       id: 1,
@@ -97,12 +99,44 @@ function App() {
     },
   ]);
 
+  // Data untuk skema sertifikasi
+  const [skemaData, setSkemaData] = useState([
+    {
+      id: 1,
+      kodeSkema: 'SKM-001',
+      namaSkema: 'Web Developer',
+      bidangKeahlian: 'Teknologi Informasi',
+      deskripsi: 'Sertifikasi untuk kemampuan pengembangan web',
+      tanggalBerlaku: '2025-12-31',
+      status: 'Aktif'
+    },
+    {
+      id: 2,
+      kodeSkema: 'SKM-002',
+      namaSkema: 'Mobile App Developer',
+      bidangKeahlian: 'Teknologi Informasi',
+      deskripsi: 'Sertifikasi untuk kemampuan pengembangan aplikasi mobile',
+      tanggalBerlaku: '2025-12-31',
+      status: 'Aktif'
+    },
+    {
+      id: 3,
+      kodeSkema: 'SKM-003',
+      namaSkema: 'Data Analyst',
+      bidangKeahlian: 'Data Science',
+      deskripsi: 'Sertifikasi untuk kemampuan analisis data',
+      tanggalBerlaku: '2025-12-31',
+      status: 'Nonaktif'
+    }
+  ]);
+
   const homeRef = useRef(null);
   const profileRef = useRef(null);
   const sertifikasiRef = useRef(null);
   const galeriRef = useRef(null);
   const kontakRef = useRef(null);
 
+  // PENTING: addskema dan editskema TIDAK ada di array ini, jadi tidak akan ada sidebar
   const pagesWithSidebar = [
     'manajemenData',
     'asesor',
@@ -194,6 +228,7 @@ function App() {
 
   const handleNavigate = (page, data = null) => {
     const pageLower = page.toLowerCase();
+    console.log('Navigating to:', pageLower); // Debug
     setCurrentPage(pageLower);
     if (data) {
       setEditData(data);
@@ -215,6 +250,7 @@ function App() {
       editasesi: 'ManajemenData',
       addasesmen: 'ManajemenData',
       editasesmen: 'ManajemenData',
+      // PENTING: addskema dan editskema tidak ada di menuMap, jadi activeMenu tidak akan berubah
     };
 
     if (['asesor', 'asesi', 'asesmen', 'jurusan', 'kompetensi', 'addlistasesmen', 'addjurusan', 'editjurusan', 'addasesor', 'editasesor', 'addasesi', 'editasesi', 'addasesmen', 'editasesmen'].includes(pageLower)) {
@@ -222,6 +258,7 @@ function App() {
     } else if (menuMap[pageLower]) {
       setActiveMenu(menuMap[pageLower]);
     }
+    // PENTING: Untuk addskema dan editskema, activeMenu tidak akan di-set, sehingga tidak mengaktifkan sidebar
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -317,6 +354,21 @@ function App() {
     alert('Data berhasil diperbarui!');
     handleNavigate('asesmen');
   };
+
+  // Handler untuk Skema - TANPA SIDEBAR
+  const handleAddSkema = (newData) => {
+    const newId = Math.max(...skemaData.map(s => s.id), 0) + 1;
+    setSkemaData([...skemaData, { ...newData, id: newId }]);
+    handleNavigate('kompetensi');
+  };
+
+  const handleEditSkema = (updatedData) => {
+    setSkemaData(skemaData.map(skema =>
+      skema.id === updatedData.id ? updatedData : skema
+    ));
+    handleNavigate('kompetensi');
+  };
+
   // Handler untuk navigasi dari TempatUji
   const handleTempatUjiNavigate = (menuItem) => {
     const menuLower = menuItem.toLowerCase();
@@ -343,7 +395,6 @@ function App() {
     
     // Bisa ditambahkan navigasi lain sesuai kebutuhan
     console.log(`Navigate to: ${menuItem}`);
-
   };
 
   return (
@@ -389,6 +440,7 @@ function App() {
         <Dashboard onBack={handleBackToHome} onNavigate={handleNavigate} />
       )}
 
+      {/* SIDEBAR SECTION - addskema dan editskema TIDAK ada di sini */}
       {pagesWithSidebar.includes(currentPage) && (
         <div
           style={{
@@ -442,7 +494,14 @@ function App() {
                 setJurusanData={setJurusanData}
               />
             )}
-            {currentPage === 'kompetensi' && <Kompetensi onBack={handleBackToHome} />}
+            {currentPage === 'kompetensi' && (
+              <Kompetensi 
+                onBack={handleBackToHome} 
+                onNavigate={handleNavigate}
+                skemaData={skemaData}
+                setSkemaData={setSkemaData}
+              />
+            )}
             {currentPage === 'listasesmen' && (
               <ListAsesmen
                 onBack={handleBackToHome}
@@ -458,7 +517,6 @@ function App() {
               <AddAsesmen
                 onSave={handleAddAsesmen}
                 onBack={() => handleNavigate('asesmen')}
-                
               />
             )}
             {currentPage === 'editasesmen' && (
@@ -472,6 +530,7 @@ function App() {
         </div>
       )}
 
+      {/* PAGES WITHOUT SIDEBAR - termasuk addskema dan editskema */}
       {currentPage === 'addasesor' && (
         <AddAsesor
           onSave={handleAddAsesor}
@@ -525,6 +584,22 @@ function App() {
           item={editData}
         />
       )}
+      
+      {/* ADDSKEMA DAN EDITSKEMA - TANPA SIDEBAR */}
+      {currentPage === 'addskema' && (
+        <AddSkema
+          onSave={handleAddSkema}
+          onCancel={() => handleNavigate('kompetensi')}
+        />
+      )}
+      {currentPage === 'editskema' && (
+        <EditSkema
+          data={editData}
+          onSave={handleEditSkema}
+          onCancel={() => handleNavigate('kompetensi')}
+        />
+      )}
+
       {currentPage === 'register' && <Register onBack={handleBackToHome} />}
       {currentPage === 'login' && <Login onBack={handleBackToHome} goToDashboard={goToDashboard} />}
       {currentPage === 'landingPage' && <LandingPage onBack={handleBackToHome} onNavigate={handleDetailSertifikasiNavigate} />}

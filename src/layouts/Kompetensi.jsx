@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import AddSkema from './AddSkema';
-import EditSkema from './EditSkema';
 
-function Skema({ onBack }) {
+function Skema({ onBack, onNavigate }) {
   const [data, setData] = useState([
     { id: 1, judulSkema: 'Rekayasa Perangkat Lunak', jumlahSiswa: 25 },
     { id: 2, judulSkema: 'Rekayasa Perangkat Lunak', jumlahSiswa: 30 },
@@ -13,78 +11,78 @@ function Skema({ onBack }) {
     { id: 7, judulSkema: 'Kuliner', jumlahSiswa: 24 }
   ]);
 
-  const [halaman, setHalaman] = useState('list'); // list | add | edit
-  const [editItem, setEditItem] = useState(null);
-
   const handleEditClick = (id) => {
     const item = data.find(d => d.id === id);
-    setEditItem(item);
-    setHalaman('edit');
+    onNavigate('editskema', item);
   };
 
-  if (halaman === 'add') {
-    return <AddSkema onBack={() => setHalaman('list')} />;
-  }
-
-  if (halaman === 'edit') {
-    return <EditSkema item={editItem} onBack={() => setHalaman('list')} />;
-  }
+  const handleAddClick = () => {
+    onNavigate('addskema');
+  };
 
   return (
-    <div style={{ 
-      padding: '0', 
-      backgroundColor: '#f5f5f5',
-      minHeight: '100vh',
-      width: '100%'
-    }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        backgroundColor: '#f0f0f0',
+        padding: '0',
+      }}
+    >
       {/* Header */}
-      <div style={{
-        backgroundColor: '#f5f5f5',
-        padding: '20px 30px',
-        borderBottom: '1px solid #e0e0e0',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <div style={{ 
-          display: 'flex', 
+      <div
+        style={{
+          backgroundColor: '#f8f9fa',
+          padding: '20px',
+          display: 'flex',
           alignItems: 'center',
-          marginBottom: '20px'
-        }}>
-          <button 
-            onClick={onBack}
+          borderBottom: '1px solid #dee2e6',
+        }}
+      >
+        <button
+          onClick={onBack}
+          style={{
+            width: '24px',
+            height: '24px',
+            backgroundColor: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            marginRight: '10px',
+            padding: 0,
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="#333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <h1
+          style={{
+            fontSize: '18px',
+            fontWeight: '600',
+            color: '#333',
+            margin: 0,
+          }}
+        >
+          SKEMA
+        </h1>
+        <div style={{ marginLeft: 'auto' }}>
+          <button
+            onClick={handleAddClick}
             style={{
-              background: 'none',
-              border: 'none',
-              fontSize: '20px',
-              marginRight: '15px',
-              cursor: 'pointer',
-              color: '#333'
-            }}
-          >
-            ←
-          </button>
-          <h1 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            margin: '0',
-            color: '#333'
-          }}>
-            SKEMA
-          </h1>
-        </div>
-        
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button 
-            onClick={() => setHalaman('add')}
-            style={{
-              backgroundColor: '#FF8A50',
+              backgroundColor: '#ff7849',
               color: 'white',
               border: 'none',
+              borderRadius: '6px',
               padding: '8px 16px',
-              borderRadius: '4px',
-              fontSize: '14px',
+              fontSize: '12px',
+              fontWeight: '500',
               cursor: 'pointer',
-              fontWeight: '500'
             }}
           >
             + Tambah Data Baru
@@ -92,122 +90,134 @@ function Skema({ onBack }) {
         </div>
       </div>
 
-      {/* Table */}
-      <div style={{ 
-        padding: '0 30px 30px 30px',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <table style={{ 
-          width: '100%', 
-          borderCollapse: 'separate',
-          borderSpacing: '0',
-          fontSize: '14px',
+      {/* Table Container */}
+      <div
+        style={{
           backgroundColor: 'white',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-        }}>
+          margin: '0',
+          overflow: 'hidden',
+        }}
+      >
+        <table
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontSize: '12px',
+          }}
+        >
           <thead>
-            <tr>
-              <th style={{
-                padding: '15px 20px',
-                textAlign: 'center',
-                fontWeight: '500',
-                color: '#666',
-                backgroundColor: '#e9ecef',
-                border: '1px solid #dee2e6',
-                width: '60px'
-              }}>
+            <tr style={{ backgroundColor: '#f8f9fa' }}>
+              <th
+                style={{
+                  padding: '12px 8px',
+                  textAlign: 'center',
+                  fontWeight: '600',
+                  color: '#333',
+                  fontSize: '12px',
+                  width: '50px',
+                  border: '1px solid #dee2e6',
+                }}
+              >
                 No
               </th>
-              <th style={{
-                padding: '15px 20px',
-                textAlign: 'center',
-                fontWeight: '500',
-                color: '#666',
-                backgroundColor: '#e9ecef',
-                border: '1px solid #dee2e6',
-                borderLeft: 'none'
-              }}>
+              <th
+                style={{
+                  padding: '12px 16px',
+                  textAlign: 'left',
+                  fontWeight: '600',
+                  color: '#333',
+                  fontSize: '12px',
+                  border: '1px solid #dee2e6',
+                }}
+              >
                 Judul Skema
               </th>
-              <th style={{
-                padding: '15px 20px',
-                textAlign: 'center',
-                fontWeight: '500',
-                color: '#666',
-                backgroundColor: '#e9ecef',
-                border: '1px solid #dee2e6',
-                borderLeft: 'none'
-              }}>
+              <th
+                style={{
+                  padding: '12px 8px',
+                  textAlign: 'center',
+                  fontWeight: '600',
+                  color: '#333',
+                  fontSize: '12px',
+                  width: '120px',
+                  border: '1px solid #dee2e6',
+                }}
+              >
                 Jumlah Siswa
               </th>
-              <th style={{
-                padding: '15px 20px',
-                textAlign: 'center',
-                fontWeight: '500',
-                color: '#666',
-                backgroundColor: '#e9ecef',
-                border: '1px solid #dee2e6',
-                borderLeft: 'none',
-                width: '120px'
-              }}>
+              <th
+                style={{
+                  padding: '12px 8px',
+                  textAlign: 'center',
+                  fontWeight: '600',
+                  color: '#333',
+                  fontSize: '12px',
+                  width: '80px',
+                  border: '1px solid #dee2e6',
+                }}
+              >
                 Aksi
               </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td style={{
-                  padding: '15px 20px',
-                  textAlign: 'center',
-                  color: '#333',
-                  border: '1px solid #dee2e6',
-                  borderTop: 'none',
-                  backgroundColor: 'white'
-                }}>
+            {data.map((item, index) => (
+              <tr
+                key={item.id}
+                style={{
+                  backgroundColor: 'white',
+                }}
+              >
+                <td
+                  style={{
+                    padding: '10px 8px',
+                    textAlign: 'center',
+                    color: '#333',
+                    fontSize: '12px',
+                    border: '1px solid #dee2e6',
+                  }}
+                >
                   {item.id}
                 </td>
-                <td style={{
-                  padding: '15px 20px',
-                  color: '#333',
-                  border: '1px solid #dee2e6',
-                  borderTop: 'none',
-                  borderLeft: 'none',
-                  backgroundColor: 'white'
-                }}>
+                <td
+                  style={{
+                    padding: '10px 16px',
+                    color: '#333',
+                    fontSize: '12px',
+                    border: '1px solid #dee2e6',
+                  }}
+                >
                   {item.judulSkema}
                 </td>
-                <td style={{
-                  padding: '15px 20px',
-                  textAlign: 'center',
-                  color: '#333',
-                  border: '1px solid #dee2e6',
-                  borderTop: 'none',
-                  borderLeft: 'none',
-                  backgroundColor: 'white'
-                }}>
+                <td
+                  style={{
+                    padding: '10px 8px',
+                    textAlign: 'center',
+                    color: '#333',
+                    fontSize: '12px',
+                    border: '1px solid #dee2e6',
+                  }}
+                >
                   {item.jumlahSiswa}
                 </td>
-                <td style={{
-                  padding: '15px 20px',
-                  textAlign: 'center',
-                  border: '1px solid #dee2e6',
-                  borderTop: 'none',
-                  borderLeft: 'none',
-                  backgroundColor: 'white'
-                }}>
+                <td 
+                  style={{ 
+                    padding: '10px 8px', 
+                    textAlign: 'center',
+                    border: '1px solid #dee2e6',
+                  }}
+                >
                   <button
                     onClick={() => handleEditClick(item.id)}
                     style={{
-                      backgroundColor: '#FFC107',
-                      color: '#333',
+                      backgroundColor: '#ffc107',
+                      color: '#212529',
                       border: 'none',
-                      padding: '6px 12px',
                       borderRadius: '4px',
-                      fontSize: '12px',
+                      padding: '4px 8px',
+                      fontSize: '11px',
+                      fontWeight: '500',
                       cursor: 'pointer',
-                      fontWeight: '500'
                     }}
                   >
                     Edit Data
@@ -217,30 +227,6 @@ function Skema({ onBack }) {
             ))}
           </tbody>
         </table>
-      </div>
-      
-      {/* Back Button */}
-      <div style={{ 
-        padding: '0 30px 30px 30px',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
-        <button 
-          onClick={onBack}
-          style={{
-            backgroundColor: '#FF8A50',
-            color: 'white',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '8px',
-            fontSize: '14px',
-            cursor: 'pointer',
-            fontWeight: '500',
-            boxShadow: '0 2px 4px rgba(255, 138, 80, 0.3)'
-          }}
-        >
-
-        </button>
       </div>
     </div>
   );

@@ -330,7 +330,7 @@ function AddSkema({ onBack, onSave, onCancel }) {
               width: '80px',
               height: '80px',
               borderRadius: '50%',
-              backgroundColor: '#28a745',
+              backgroundColor: '#4A90E2',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
