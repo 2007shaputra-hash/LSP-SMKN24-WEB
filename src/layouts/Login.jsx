@@ -204,19 +204,10 @@ function Login({ goToDashboard }) {
                   outline: 'none',
                   fontFamily: 'inherit',
                   color: '#333',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  transform: 'translateX(0)'
+                  transition: 'border-color 0.3s ease'
                 }}
-                onFocus={(e) => {
-                  e.target.style.borderBottomColor = '#f97316';
-                  e.target.style.transform = 'translateX(4px)';
-                  e.target.style.boxShadow = '0 4px 20px rgba(249, 115, 22, 0.15)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderBottomColor = '#e5e7eb';
-                  e.target.style.transform = 'translateX(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
+                onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
+                onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
               />
             </div>
 
@@ -239,19 +230,10 @@ function Login({ goToDashboard }) {
                   outline: 'none',
                   fontFamily: 'inherit',
                   color: '#333',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  transform: 'translateX(0)'
+                  transition: 'border-color 0.3s ease'
                 }}
-                onFocus={(e) => {
-                  e.target.style.borderBottomColor = '#f97316';
-                  e.target.style.transform = 'translateX(4px)';
-                  e.target.style.boxShadow = '0 4px 20px rgba(249, 115, 22, 0.15)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderBottomColor = '#e5e7eb';
-                  e.target.style.transform = 'translateX(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
+                onFocus={(e) => e.target.style.borderBottomColor = '#f97316'}
+                onBlur={(e) => e.target.style.borderBottomColor = '#e5e7eb'}
               />
             </div>
           </div>
