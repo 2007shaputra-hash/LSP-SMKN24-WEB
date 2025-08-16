@@ -446,432 +446,248 @@ export function DashboardSidebar({ activeMenu, onMenuClick }) {
 }
 
 function ProfileSection() {
+  const cardStyle = {
+    backgroundColor: '#fff',
+    borderRadius: '16px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+    padding: '20px',
+    marginBottom: '20px'
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 15px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '8px',
+    fontSize: '15px'
+  };
+
+  const labelStyle = {
+    display: 'block',
+    marginBottom: '8px',
+    fontWeight: '500',
+    color: '#333'
+  };
+
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "800px",
-        padding: "30px",
-        backgroundColor: "#ffffff",
-        borderRadius: "20px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-        margin: "20px",
-      }}
-    >
-      {/* Profile Header */}
-      <div style={{ textAlign: "center" }}>
-        <h1
-          style={{
-            fontSize: "24px",
-            fontWeight: "600",
-            color: "#1a1a1a",
-            marginBottom: "30px",
-          }}
-        >
-          PROFIL ANDA
-        </h1>
-        <p style={{ color: "#666", marginBottom: "30px" }}>
-          Lengkapi informasi profil anda
-        </p>
+    <div style={{ width: '100%', maxWidth: '900px', margin: '0 auto', padding: '30px' }}>
+      {/* Header */}
+      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: '600' }}>PROFIL ANDA</h1>
+        <p style={{ color: '#666' }}>Lengkapi informasi profil anda</p>
       </div>
 
-      {/* Profile Photo Section */}
-      <div style={{ marginBottom: "40px" }}>
-        <h2
-          style={{
-            fontSize: "18px",
-            fontWeight: "600",
-            color: "#1a1a1a",
-            marginBottom: "15px",
-          }}
-        >
-          Foto Profil
-        </h2>
-        <div
-          style={{
-            border: "2px dashed #e0e0e0",
-            borderRadius: "12px",
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          <p
-            style={{
-              fontWeight: "500",
-              marginBottom: "10px",
-              color: "#333",
-            }}
-          >
-            <strong>Upload Foto Profil</strong>
-          </p>
-          <p style={{ color: "#666", fontSize: "14px" }}>
-            Format PNG, JPG, Maksimal 2MB
-          </p>
-        </div>
+      {/* Foto Profil */}
+<div style={cardStyle}>
+  <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '15px' }}>Foto Profil</h2>
+  
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '15px',
+    border: '2px dashed #e0e0e0',
+    borderRadius: '12px',
+    padding: '20px'
+  }}>
+    {/* Icon Camera */}
+    <div style={{
+      width: '80px',
+      height: '80px',
+      borderRadius: '50%',
+      backgroundColor: '#f5f5f5',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative'
+    }}>
+      <img src="/icons/camera.svg" alt="Camera" style={{ width: '40px', height: '40px' }} />
+      
+      {/* Icon kecil di pojok bawah */}
+      <div style={{
+        position: 'absolute',
+        bottom: '5px',
+        right: '5px',
+        backgroundColor: '#ff6b35',
+        borderRadius: '50%',
+        width: '24px',
+        height: '24px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="white" 
+        viewBox="0 0 24 24" 
+        width="14px" 
+        height="14px"
+      >
+    <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-2c.828 0 1.58.335 2.121.879l.879.879H18a2 2 0 0 1 2 2v8a2 
+             2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3l.879-.879A3 3 0 0 1 12 5z"/>
+    </svg>
       </div>
+    </div>
 
-      {/* Personal Information Section */}
-      <div style={{ marginBottom: "40px" }}>
-        <h2
-          style={{
-            fontSize: "18px",
-            fontWeight: "600",
-            color: "#1a1a1a",
-            marginBottom: "15px",
-          }}
-        >
-          Informasi Pribadi
-        </h2>
+    {/* Text Upload */}
+    <div>
+      <p style={{ fontWeight: '500', marginBottom: '5px' }}>Upload Foto Profil</p>
+      <p style={{ fontSize: '14px', color: '#666' }}>Format PNG, JPG, Maksimal 2MB</p>
+    </div>
+  </div>
+</div>
 
-        <div style={{ marginBottom: "20px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontWeight: "500",
-              color: "#333",
-            }}
-          >
-            Nama Lengkap
-          </label>
-          <input
-            type="text"
-            style={{
-              width: "100%",
-              padding: "12px 15px",
-              border: "1px solid #e0e0e0",
-              borderRadius: "8px",
-              fontSize: "15px",
-            }}
-          />
+      {/* Informasi Pribadi */}
+      <div style={cardStyle}>
+        <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '15px' }}>Informasi Pribadi</h2>
+
+        <div style={{ marginBottom: '20px' }}>
+          <label style={labelStyle}>Nama Lengkap</label>
+          <input type="text" style={inputStyle} />
         </div>
 
-        <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+        <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
           <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Tempat Lahir
-            </label>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+            <label style={labelStyle}>Tempat Lahir</label>
+            <input type="text" style={inputStyle} />
           </div>
           <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Tanggal Lahir
-            </label>
-            <input
-              type="date"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+            <label style={labelStyle}>Tanggal Lahir</label>
+            <input type="date" style={inputStyle} />
           </div>
         </div>
 
-        <div style={{ marginBottom: "20px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontWeight: "500",
-              color: "#333",
-            }}
-          >
-            Alamat
-          </label>
-          <textarea
-            style={{
-              width: "100%",
-              padding: "12px 15px",
-              border: "1px solid #e0e0e0",
-              borderRadius: "8px",
-              fontSize: "15px",
-              minHeight: "100px",
-            }}
-          />
+        <div style={{ marginBottom: '20px' }}>
+          <label style={labelStyle}>Alamat</label>
+          <textarea style={{ ...inputStyle, minHeight: '100px' }} />
         </div>
 
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: 'flex', gap: '20px' }}>
           <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Nomor HP
-            </label>
-            <input
-              type="tel"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+            <label style={labelStyle}>Nomor HP</label>
+            <input type="tel" style={inputStyle} />
           </div>
           <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+            <label style={labelStyle}>Email</label>
+            <input type="email" style={inputStyle} />
           </div>
         </div>
       </div>
 
-      {/* Document Information Section */}
-      <div>
-        <h2
-          style={{
-            fontSize: "18px",
-            fontWeight: "600",
-            color: "#1a1a1a",
-            marginBottom: "15px",
-          }}
-        >
-          Informasi Dokumen
-        </h2>
+      {/* Card Informasi Dokumen */}
+        <div style={cardStyle}>
+          <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '15px' }}>Informasi Dokumen</h2>
 
-        <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
-          <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Nomor KTP
-            </label>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ flex: 1 }}>
+              <label style={labelStyle}>Nomor KTP</label>
+              <input type="text" style={inputStyle} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={labelStyle}>NPWP</label>
+              <input type="text" style={inputStyle} />
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              NPWP
-            </label>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ flex: 1 }}>
+              <label style={labelStyle}>Nomor Sertifikat Kompetensi</label>
+              <input type="text" style={inputStyle} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={labelStyle}>Nomor Rekening</label>
+              <input type="text" style={inputStyle} />
+            </div>
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
-          <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Nomor Sertifikat Kompetensi
-            </label>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+
+        {/* Upload Dokumen dalam satu baris */}
+        <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+          
+          {/* Card KTP */}
+          <div style={{
+            flex: 1,
+            backgroundColor: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.08)'
+          }}>
+            <label style={{ fontWeight: '600', marginBottom: '10px', display: 'block' }}>KTP</label>
+            <div style={{
+              border: '2px dashed #e0e0e0',
+              borderRadius: '12px',
+              padding: '45px',
+              textAlign: 'center'
+            }}>
+              <p style={{ color: '#666', fontSize: '14px' }}>Upload KTP</p>
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                fontWeight: "500",
-                color: "#333",
-              }}
-            >
-              Nomor Rekening
-            </label>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                padding: "12px 15px",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                fontSize: "15px",
-              }}
-            />
+
+          {/* Card Buku Tabungan */}
+          <div style={{
+            flex: 1,
+            backgroundColor: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.08)'
+          }}>
+            <label style={{ fontWeight: '600', marginBottom: '10px', display: 'block' }}>Buku Tabungan</label>
+            <div style={{
+              border: '2px dashed #e0e0e0',
+              borderRadius: '12px',
+              padding: '45px',
+              textAlign: 'center'
+            }}>
+              <p style={{ color: '#666', fontSize: '14px' }}>Upload Buku Tabungan</p>
+            </div>
+          </div>
+
+          {/* Card Sertifikat Kompetensi */}
+          <div style={{
+            flex: 1,
+            backgroundColor: '#fff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '20px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.08)'
+          }}>
+            <label style={{ fontWeight: '600', marginBottom: '10px', display: 'block' }}>Sertifikat Kompetensi</label>
+            <div style={{
+              border: '2px dashed #e0e0e0',
+              borderRadius: '12px',
+              padding: '35px',
+              textAlign: 'center'
+            }}>
+              <p style={{ color: '#666', fontSize: '14px' }}>Upload Sertifikat Kompetensi</p>
+            </div>
           </div>
         </div>
 
-        {/* Document Upload Sections */}
-        <div style={{ marginBottom: "20px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontWeight: "500",
-              color: "#333",
-            }}
-          >
-            KTP
-          </label>
-          <div
-            style={{
-              border: "2px dashed #e0e0e0",
-              borderRadius: "12px",
-              padding: "20px",
-              textAlign: "center",
-              marginBottom: "15px",
-            }}
-          >
-            <p style={{ color: "#666", fontSize: "14px" }}>Upload KTP</p>
-          </div>
-        </div>
 
-        <div style={{ marginBottom: "20px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontWeight: "500",
-              color: "#333",
-            }}
-          >
-            Buku Tabungan
-          </label>
-          <div
-            style={{
-              border: "2px dashed #e0e0e0",
-              borderRadius: "12px",
-              padding: "20px",
-              textAlign: "center",
-              marginBottom: "15px",
-            }}
-          >
-            <p style={{ color: "#666", fontSize: "14px" }}>
-              Upload Buku Tabungan
-            </p>
-          </div>
-        </div>
-
-        <div style={{ marginBottom: "20px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontWeight: "500",
-              color: "#333",
-            }}
-          >
-            Sertifikat Kompetensi
-          </label>
-          <div
-            style={{
-              border: "2px dashed #e0e0e0",
-              borderRadius: "12px",
-              padding: "20px",
-              textAlign: "center",
-            }}
-          >
-            <p style={{ color: "#666", fontSize: "14px" }}>
-              Upload Sertifikat Kompetensi
-            </p>
-          </div>
-        </div>
-
-        {/* Save Button */}
-        <button
-          style={{
-            backgroundColor: "#ff6b35",
-            color: "white",
-            border: "none",
-            padding: "12px 24px",
-            borderRadius: "8px",
-            fontSize: "16px",
-            fontWeight: "600",
-            cursor: "pointer",
-            marginTop: "30px",
-            width: "100%",
-            transition: "background-color 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.backgroundColor = "#e05a2b")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "#ff6b35")
-          }
+        {/* Tombol Simpan */}
+        <button style={{
+          backgroundColor: '#ff6b35',
+          color: 'white',
+          border: 'none',
+          padding: '12px 24px',
+          borderRadius: '8px',
+          fontSize: '16px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          marginTop: '30px',
+          width: '100%',
+          transition: 'background-color 0.2s'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e05a2b'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ff6b35'}
         >
           Simpan Perubahan
         </button>
-      </div>
+
+
+      
     </div>
   );
 }
