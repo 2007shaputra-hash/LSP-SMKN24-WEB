@@ -172,7 +172,7 @@ function GaleriFoto({ onBack }) {
             color: '#333',
             margin: '0 0 10px 0'
           }}>
-            Dokumentasi Kegiatan
+            Dokumentasi
           </h2>
           <div style={{
             width: '80px',
