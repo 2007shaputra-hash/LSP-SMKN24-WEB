@@ -13,7 +13,7 @@ function GaleriFoto({ onBack }) {
       title: 'Seminar Nasional Teknologi Informasi',
       description: 'Acara seminar nasional yang diselenggarakan oleh LSP dengan pembicara ahli teknologi terkini',
       date: '27 Januari 2025',
-      category: 'Seminar'
+      category: 'Lab RPL'
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ function GaleriFoto({ onBack }) {
       title: 'Workshop Sertifikasi Web Developer',
       description: 'Pelatihan intensif pengembangan web untuk peserta sertifikasi dengan mentor berpengalaman',
       date: '15 Februari 2025',
-      category: 'Workshop'
+      category: 'USK'
     },
     {
       id: 3,
